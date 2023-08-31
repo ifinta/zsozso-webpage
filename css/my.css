@@ -1,4 +1,9 @@
 body {
   margin: 30px;
   background-color: lightblue;
+  padding-top: 70px;
+}
+
+.nav-link:hover {
+  color: #f22;
 }
