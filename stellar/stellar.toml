@@ -1,12 +1,21 @@
-ACCOUNTS=[
-"GDZKLEYJ54QUIEYE4DUUOCIJDUS7R5MDW5MCAB3XTUGPJ3C7SSZJRQUC"
-]
+
+# ACCOUNTS=[
+# "GDZKLEYJ54QUIEYE4DUUOCIJDUS7R5MDW5MCAB3XTUGPJ3C7SSZJRQUC"
+# ]
+
 [DOCUMENTATION]
 ORG_NAME="Vortexledger"
+ORG_URL="https://zsozso.info"
+ORG_DESCRIPTION="A distributed community"
 ORG_PHYSICAL_ADDRESS="No Republica"
+
 [[PRINCIPALS]]
 name="Arthur Pendragon"
+
 [[CURRENCIES]]
 code="ZSOZSO"
+image="https://zsozso.info/icon.a910d4bd.png"
 issuer="GDZKLEYJ54QUIEYE4DUUOCIJDUS7R5MDW5MCAB3XTUGPJ3C7SSZJRQUC"
+display_decimals=7
+desc="Vortexledger community asset"
 is_asset_anchored=false
