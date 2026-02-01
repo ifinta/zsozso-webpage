@@ -1,4 +1,5 @@
-<head>  <meta charset="utf-8">
+<head>
+  <meta charset="utf-8">
   <title>Zsozso-Whitepaper</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,6 +11,7 @@
 
   <meta name="theme-color" content="#fafafa">
 </head>
+
 <body>
   <nav class="nav nav-pills fixed-top" style="background-color: #e3f2fd;">
     <a class="nav-link rounded-0" href="index.html">Zsozso</a>
@@ -21,6 +23,233 @@
     <a class="nav-link rounded-0" href="contact.html">Contact</a>
   </nav>
   <div></div>
-  <h3>It is simple:</h3>
-  <p>We decided to issue Zsozso as a Hungarian memecoin. Zsozso will have many use-cases later in different kind of dApps based on the Stellar network.</p>
+
+  <article style="line-height: 1.6; font-family: sans-serif; max-width: 900px; margin: auto; color: #333;">
+    <header style="text-align: center; border-bottom: 2px solid #2c3e50; padding-bottom: 20px;">
+      <h1 style="color: #2c3e50;">Whitepaper: The Iceberg Protocol</h1>
+      <p><strong>Version 1.0 | Decentralized Hierarchical MLM (Multi-Level Marketing) Infrastructure & Message-Bus
+          Architecture</strong></p>
+      <p><em>Powered by Stellar Soroban | Utility Asset: <a
+            href="https://stellar.expert/explorer/public/asset/ZSOZSO-GDZKLEYJ54QUIEYE4DUUOCIJDUS7R5MDW5MCAB3XTUGPJ3C7SSZJRQUC"
+            target="_blank">ZSOZSO</a></em></p>
+    </header>
+
+    <section>
+      <h2>1. Abstract</h2>
+      <p>
+        The Iceberg Protocol introduces a modular, high-integrity framework for decentralized organizations. By
+        leveraging the <strong>Stellar Soroban</strong> smart contract engine, we provide a self-regulating MLM
+        (Multi-Level Marketing) structural layer decoupled from business logic via a proprietary <strong>Message-Bus
+          (Queue) Architecture</strong>. Our core protocol manages the issuance and stability of the <strong>CYBERFORINT
+          (CYF)</strong>, a dynamically-backed digital asset, while providing an open-access utility for third-party
+        developers to launch independent hierarchical ventures using the ZSOZSO utility token.
+      </p>
+    </section>
+
+    <section>
+      <h2>2. The "Iceberg" Structural Philosophy</h2>
+      <p>
+        The protocol distinguishes between the <strong>Immutable Logic</strong> (Submerged) and the <strong>Dynamic
+          Interface</strong> (Surface).
+      </p>
+      <ul>
+        <li><strong>Submerged Layer:</strong> A recursive, N-level deep MLM tree. Each node is a standalone smart
+          contract acting as a gateway.</li>
+        <li><strong>Surface Layer:</strong> One-page JavaScript/HTML applications or simple mobile App's ("The surface
+          of Iceberg Summits, Roots")
+          where users, Pinguins,
+          interact with financial instruments (Minting/Burning) without needing to understand the underlying complex
+          hierarchy.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>3. Decentralized Hierarchy & Evolution</h2>
+      <p>
+        Unlike traditional centralized MLM systems, the Iceberg Protocol utilizes a <strong>Non-Custodial Tree
+          Model</strong>.
+      </p>
+      <h3>3.1 Recursive Deployment (The Sponsor Chain)</h3>
+      <p>
+        Every node is deployed by its "Sponsor" contract. During initialization, the upstream data of 6 ancestral levels
+        is passed down, ensuring that rewards and data packets always have a verified path to the Root. This creates a
+        chain of trust established at the moment of the <strong>WASM deployment</strong>.
+      </p>
+      <h3>3.2 Heartbeat & The Pruning Protocol</h3>
+      <p>
+        System hygiene is maintained through "Proof of Presence." Users must interact with their node to maintain its
+        <em>Active</em> status.
+      </p>
+      <ul>
+        <li><strong>Notification Period:</strong> If a sponsor becomes inactive, a child node issues a "Wake-up" call
+          via the on-chain messaging system.</li>
+        <li><strong>The Resolution Choice:</strong> After a 168-hour grace period, the child can choose to
+          <strong>Support</strong> (pay the sponsor's storage rent to maintain hierarchy) or <strong>Prune</strong>
+          (sever the link).
+        </li>
+        <li><strong>Promotion to Root:</strong> Pruning results in the child node becoming a new "Root Node." It gains
+          full governance over its own branch, including the right to set PID parameters and custom fee structures - a
+          new Iceberg Summit.</li>
+        <li><strong>About inactive leafs:</strong> When a leaf becomes inactive, the process is similar, except that the
+          sponsor is the awakener or absorber.</li>
+        <li><strong>Incentivized Activity:</strong> Active participation is rewarded, while dormant nodes risk losing
+          their resources and hierarchical benefits.</li>
+        <li><strong>Decentralized Evolution:</strong> This mechanism allows the MLM tree to evolve organically, with
+          active
+          participants rising to leadership roles, ensuring a dynamic and self-sustaining ecosystem.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>4. Technical Engine: Message-Bus & Ports</h2>
+      <p>
+        To achieve high scalability and modularity, we implement a <strong>Port-based Messaging System</strong>.
+        Contracts do not call each other's functions directly in a rigid way; instead, they send standardized "Data
+        Packets" to a <strong>Queue</strong>.
+      </p>
+      <p>
+        This architecture allows a "Plug-and-Play" approach:
+      </p>
+      <ul>
+        <li><strong>Vault Ports:</strong> For managing asset baskets and collateral.</li>
+        <li><strong>RWA Ports:</strong> For late-stage integration of audited physical assets.</li>
+        <li><strong>Third-Party Ports:</strong> External projects can hook into an Iceberg MLM tree by simply
+          implementing the <code>MessagePort</code> interface.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>5. Algorithmic Market Dynamics & The CYBERFORINT (CYF)</h2>
+      <p>
+        The <strong>CYBERFORINT (CYF)</strong> asset is the native, dynamically-backed crypto-asset of the Iceberg
+        ecosystem. The total supply of CYF is zero at launch; assets are introduced into circulation <strong>solely
+          through the Minting process</strong> initiated by active Root Nodes and Pingvin users.
+      </p>
+      <p>
+        <strong>CYF Issuance & Stability:</strong> CYF is not pegged to any existing fiat currency. Its value is
+        stabilized algorithmically by a digital <strong>PID (Proportional-Integral-Derivative) Controller</strong>
+        implemented in fixed-point Rust math. This controller monitors the network's Mint/Burn velocity and adjusts the
+        collateralization ratio in real-time, ensuring unique market dynamics based purely on internal ecosystem
+        activity.
+      </p>
+      <p>
+        <strong>Resonance & Noise Filtering:</strong> Root nodes are responsible for setting the <em>Alpha Filter</em>
+        for their respective branches. This parameter allows the Root to manage how aggressively their local market
+        reacts to volatility, enabling a healthy competition for user stability.
+      </p>
+    </section>
+
+    <section>
+      <h2>6. Ecosystem Openness & ZSOZSO Utility</h2>
+      <p>
+        The Iceberg Protocol is intended to be the "Gold Standard" for on-chain MLM structures. We encourage external
+        developers to build their own "Icebergs" using our battle-tested messaging and pruning models.
+      </p>
+      <p>
+        <strong>Accessing the Infrastructure requires the ZSOZSO Utility Token:</strong>
+      </p>
+      <p>
+        To utilize the Iceberg MLM framework for external projects and access the core smart contract libraries, the
+        <strong>ZSOZSO asset</strong> is required as the primary utility fuel. The ZSOZSO token acts as the key to:
+      </p>
+      <ul>
+        <li><strong>Initialize new hierarchical structures</strong> within the ecosystem.</li>
+        <li><strong>Authorize cross-contract messaging</strong> between independent MLM nodes.</li>
+        <li><strong>Finance core infrastructure development:</strong> Fees paid in ZSOZSO directly fund the continuous
+          maintenance and auditing of the protocol's codebase.</li>
+      </ul>
+      <p>
+        By tethering the system to <a
+          href="https://stellar.expert/explorer/public/asset/ZSOZSO-GDZKLEYJ54QUIEYE4DUUOCIJDUS7R5MDW5MCAB3XTUGPJ3C7SSZJRQUC"
+          target="_blank">ZSOZSO (Issuer: GDZK...SSZJRQUC)</a>, we ensure a sustainable growth model for the protocol's
+        maintainers and early adopters.
+      </p>
+    </section>
+
+    <section style="background-color: #f8f9fa; padding: 20px; border-radius: 8px;">
+      <h2>7. Roadmap</h2>
+      <ol>
+        <li><strong>Phase 1:</strong> Deployment of the Core MLM & Pruning Engine (Soroban Mainnet).</li>
+        <li><strong>Phase 2:</strong> Launch of the initial Asset-Basket Vaults and PID-regulated <strong>CYBERFORINT
+            (CYF)</strong> Minting.</li>
+        <li><strong>Phase 3:</strong> Public API for ZSOZSO-powered third-party MLM deployments.</li>
+        <li><strong>Phase 4:</strong> Integration of audited Real-World Assets (RWA) as further collateral options for
+          CYF.</li>
+      </ol>
+    </section>
+
+    <section
+      style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 30px; border: 1px solid #e0f7fa; border-radius: 20px; background-color: #fbfffe;">
+      <h2 style="text-align: center; color: #006064; border-bottom: 2px solid #00acc1; padding-bottom: 10px;">CYF
+        Minting Flowchart</h2>
+
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 20px; margin-top: 30px;">
+
+        <!-- STEP 1 -->
+        <div
+          style="width: 250px; padding: 15px; background: #ffffff; border: 2px solid #00acc1; border-radius: 10px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+          <strong style="color: #00838f;">1. Pingvin Request</strong><br>
+          <span style="font-size: 0.9em;">User selects an iceberg and initiates Minting via SPA interface.</span>
+        </div>
+
+        <div style="font-size: 20px; color: #00acc1;">↓</div>
+
+        <!-- STEP 2 -->
+        <div
+          style="width: 250px; padding: 15px; background: #e0f7fa; border: 2px solid #00acc1; border-radius: 10px; text-align: center;">
+          <strong style="color: #00838f;">2. Message Queue</strong><br>
+          <span style="font-size: 0.9em;">MLM Router identifies the target Iceberg & Port.</span>
+        </div>
+
+        <div style="font-size: 20px; color: #00acc1;">↓</div>
+
+        <!-- STEP 3 -->
+        <div
+          style="width: 250px; padding: 15px; background: #fff9c4; border: 2px solid #fbc02d; border-radius: 10px; text-align: center;">
+          <strong style="color: #f57f17;">3. PID Engine</strong><br>
+          <span style="font-size: 0.9em;">Calculates dynamic collateral ratio based on velocity.</span>
+        </div>
+
+        <div style="font-size: 20px; color: #00acc1;">↓</div>
+
+        <!-- STEP 4 -->
+        <div
+          style="width: 250px; padding: 15px; background: #ffffff; border: 2px solid #00acc1; border-radius: 10px; text-align: center;">
+          <strong style="color: #00838f;">4. Vault Lock</strong><br>
+          <span style="font-size: 0.9em;">Collateral assets are secured in the Vault.</span>
+        </div>
+
+        <div style="font-size: 20px; color: #00acc1;">↓</div>
+
+        <!-- STEP 5 -->
+        <div
+          style="width: 250px; padding: 15px; background: #c8e6c9; border: 2px solid #43a047; border-radius: 10px; text-align: center;">
+          <strong style="color: #1b5e20;">5. CYF Issuance</strong><br>
+          <span style="font-size: 0.9em;">CYBERFORINT is minted to user's wallet.</span>
+        </div>
+
+      </div>
+
+      <!-- ZSOZSO UTILITY NOTE -->
+      <div
+        style="margin-top: 40px; padding: 20px; background: #263238; color: #ffffff; border-radius: 15px; font-size: 0.95em;">
+        <h4 style="color: #80deea; margin-top: 0;">Infrastructure Fuel: ZSOZSO</h4>
+        <p>
+          While <strong>CYF</strong> serves as the internal algorithmic asset, the entire framework is sustained by
+          <strong>ZSOZSO</strong>.
+          External developers and MLM projects utilizing this framework contribute to the project's development via
+          ZSOZSO-based license fees, ensuring the ecosystem's continuous evolution.
+        </p>
+        <p style="text-align: center; margin-bottom: 0;">
+          <a href="https://stellar.expert/explorer/public/asset/ZSOZSO-GDZKLEYJ54QUIEYE4DUUOCIJDUS7R5MDW5MCAB3XTUGPJ3C7SSZJRQUC"
+            target="_blank" style="color: #80deea; text-decoration: none; font-weight: bold;">ZSOZSO asset &rarr;</a>
+        </p>
+      </div>
+    </section>
+
+    <footer style="margin-top: 40px; font-size: 0.9em; text-align: center; color: #7f8c8d;">
+      <p>© 2024 Iceberg Protocol Development Team. Built on Stellar.</p>
+    </footer>
+  </article>
+
 </body>
