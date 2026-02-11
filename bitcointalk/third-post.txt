@@ -1,0 +1,59 @@
+[center][size=24pt][b]Whitepaper: The Iceberg Protocol[/b][/size]
+[size=12pt][b]Version 1.0 | Decentralized Hierarchical MLM Infrastructure & Message-Bus Architecture[/b][/size]
+
+[i]Powered by Stellar Soroban | Utility Asset: [url=https://stellar.expert/explorer/public/asset/ZSOZSO-GDZKLEYJ54QUIEYE4DUUOCIJDUS7R5MDW5MCAB3XTUGPJ3C7SSZJRQUC]ZSOZSO[/url][/i]
+[hr][/center]
+
+[size=18pt][b]1. Abstract[/b][/size]
+The Iceberg Protocol introduces a modular, high-integrity framework for decentralized organizations. By leveraging the [b]Stellar Soroban[/b] smart contract engine, we provide a self-regulating MLM (Multi-Level Marketing) structural layer decoupled from business logic via a proprietary [b]Message-Bus (Queue) Architecture[/b]. Our core protocol manages the issuance and stability of the [b]CYBERFORINT (CYF)[/b], a dynamically-backed digital asset, while providing an open-access utility for third-party developers to launch independent hierarchical ventures using the ZSOZSO utility token.
+
+[size=18pt][b]2. The "Iceberg" Structural Philosophy[/b][/size]
+The protocol distinguishes between the [b]Immutable Logic[/b] (Submerged) and the [b]Dynamic Interface[/b] (Surface).
+
+[list]
+[*] [b]Submerged Layer:[/b] A recursive, N-level deep MLM tree. Each node is a standalone smart contract acting as a gateway.
+[*] [b]Surface Layer:[/b] One-page JavaScript/HTML applications or simple mobile App's ("The surface of Iceberg Summits, Roots") where users, Pinguins, interact with financial instruments (Minting/Burning) without needing to understand the underlying complex hierarchy.
+[/list]
+
+[size=18pt][b]3. Decentralized Hierarchy & Evolution[/b][/size]
+Unlike traditional centralized MLM systems, the Iceberg Protocol utilizes a [b]Non-Custodial Tree Model[/b].
+
+[size=14pt][b]3.1 Recursive Deployment (The Sponsor Chain)[/b][/size]
+Every node is deployed by its "Sponsor" contract. During initialization, the upstream data of 6 ancestral levels is passed down, ensuring that rewards and data packets always have a verified path to the Root. This creates a chain of trust established at the moment of the [b]WASM deployment[/b].
+
+[size=14pt][b]3.2 Heartbeat & The Pruning Protocol[/b][/size]
+System hygiene is maintained through "Proof of Presence." Users must interact with their node to maintain its [i]Active[/i] status.
+
+[list]
+[*] [b]Notification Period:[/b] If a sponsor becomes inactive, a child node issues a "Wake-up" call via the on-chain messaging system.
+[*] [b]The Resolution Choice:[/b] After a 168-hour grace period, the child can choose to [b]Support[/b] (pay the sponsor's storage rent) or [b]Prune[/b] (sever the link).
+[*] [b]Promotion to Root:[/b] Pruning results in the child node becoming a new "Root Node." It gains full governance over its own branch, including the right to set PID parameters - a new Iceberg Summit.
+[*] [b]Incentivized Activity:[/b] Active participation is rewarded, while dormant nodes risk losing their resources and hierarchical benefits.
+[/list]
+
+[size=18pt][b]4. Technical Engine: Message-Bus & Ports[/b][/size]
+To achieve high scalability and modularity, we implement a [b]Port-based Messaging System[/b]. Contracts do not call each other's functions directly; instead, they send "Data Packets" to a [b]Queue[/b].
+
+[list]
+[*] [b]Vault Ports:[/b] For managing asset baskets and collateral.
+[*] [b]RWA Ports:[/b] For late-stage integration of audited physical assets.
+[*] [b]Third-Party Ports:[/b] External projects can hook into an Iceberg MLM tree by simply implementing the [/list][code]MessagePort[/code][list] interface.
+[/list]
+
+[size=18pt][b]5. Algorithmic Market Dynamics & The CYBERFORINT (CYF)[/b][/size]
+The [b]CYBERFORINT (CYF)[/b] supply is zero at launch; assets are introduced solely through the [b]Minting process[/b] initiated by active Root Nodes and Pingvin users.
+
+[b]CYF Issuance & Stability:[/b] CYF value is stabilized algorithmically by a digital [b]PID (Proportional-Integral-Derivative) Controller[/b] implemented in fixed-point Rust math. This controller monitors Mint/Burn velocity and adjusts the collateralization ratio in real-time.
+
+[size=18pt][b]6. Ecosystem Openness & ZSOZSO Utility[/b][/size]
+The Iceberg Protocol is intended to be the "Gold Standard" for on-chain MLM structures.
+
+[b]Accessing the Infrastructure requires the ZSOZSO Utility Token:[/b]
+The [b]ZSOZSO asset[/b] is required as the primary utility fuel to:
+[list]
+[*] Initialize new hierarchical structures.
+[*] Authorize cross-contract messaging.
+[*] Finance core infrastructure development and auditing.
+[/list]
+
+[i]Official Asset Link: [url=https://stellar.expert/explorer/public/asset/ZSOZSO-GDZKLEYJ54QUIEYE4DUUOCIJDUS7R5MDW5MCAB3XTUGPJ3C7SSZJRQUC]ZSOZSO (Issuer: GDZK...SSZJRQUC)[/url][/i]

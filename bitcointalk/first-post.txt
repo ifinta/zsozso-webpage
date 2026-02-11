@@ -1,0 +1,39 @@
+[ANN] Zsozso is a Hungarian sleng, means money, powering the Iceberg Ecosystem.
+
+
+
+
+
+
+[center]
+[size=24pt][color=#006064][b]ZSOZSO - The Currency of the Iceberg Ecosystem[/b][/color][/size]
+[size=14pt][i]"Zsozso" is Hungarian slang for [b]Money[/b]. Simple, yet powerful.[/i][/size]
+[hr]
+
+[size=12pt]ZSOZSO is no longer just a meme token. It has evolved into the primary utility fuel for the [b]Iceberg Protocol[/b],
+powering decentralized MLM (Multi-Level Marketing) structures and hierarchical trust-trees on the [b]Stellar Network[/b].[/size]
+
+[hr]
+[b][color=#00838f]Key Resources:[/color][/b]
+[url=https://zsozso.info]🌐 Homepage[/url]
+[url=https://bsky.app/profile/zsozsoonstellar.bsky.social]🦋 BlueSky (Updates)[/url]
+[url=https://github.com/ifinta/zsozso-webpage]💻 GitHub Repository[/url]
+
+[b][color=#00838f]Documentation:[/color][/b]
+[url=https://zsozso.info/faq.html]❓ FAQ (EN/HU)[/url]
+[url=https://zsozso.info/allocation.html]📊 Token Allocation[/url]
+[url=https://stellar.sui.li/zsozso.info]⚙️ TOML Checker[/url]
+[hr]
+[size=18pt][color=#006064][b]Token Asset Information[/b][/color][/size]
+
+[b]Asset Code:[/b] [color=#00acc1]ZSOZSO[/color]
+[b]Issuer Account:[/b] [code]GDZKLEYJ54QUIEYE4DUUOCIJDUS7R5MDW5MCAB3XTUGPJ3C7SSZJRQUC[/code]
+
+[size=12pt][url=https://stellar.expert/explorer/public/asset/ZSOZSO-GDZKLEYJ54QUIEYE4DUUOCIJDUS7R5MDW5MCAB3XTUGPJ3C7SSZJRQUC][b]🔍 View on Stellar.Expert Explorer[/b][/url]
+[url=https://stellarport.io/exchange/GDZKLEYJ54QUIEYE4DUUOCIJDUS7R5MDW5MCAB3XTUGPJ3C7SSZJRQUC/ZSOZSO/GA5ZSEJYB37JRC5AVCIA5MOP4RHTM335X2KGX3IHOJAPP5RE34K4KZVN/USDC][b]💹 Trade on StellarPort (DEX)[/b][/url][/size]
+
+[hr]
+[b][color=#546e7a]Community Access:[/color][/b]
+[s]Discord invite: https://discord.gg/CvsGETXYJH[/s]
+[i][color=#d32f2f]The invitation period closed. Join through a member to enter the inner circle.[/color][/i]
+[/center]

@@ -1,0 +1,67 @@
+[center]
+[iurl=#Hungarian][size=10pt][b]Magyarul mindez (Click here for Hungarian)[/b][/size][/iurl]
+
+[size=32pt][color=#006064][b]The Iceberg Protocol[/b][/color][/size]
+[size=16pt][color=#00838f]Look beyond the surface. Build a stable future on a deep and secure
+MLM infrastructure on the Stellar blockchain.[/color][/size]
+[hr]
+
+[size=25pt]🐧[/size]
+[size=18pt][color=#006064][b]For Pingvins[/b][/color][/size]
+[size=11pt][i](Investors, traders)[/i][/size]
+[size=12pt]Choose an iceberg and mint/burn [b]CYBERFORINT (CYF)[/b].
+Independent price movement and algorithmically protected value, zero central manipulation.[/size]
+
+[hr]
+
+[size=25pt]🏗️[/size]
+[size=18pt][color=#33691e][b]For Developers[/b][/color][/size]
+[size=11pt][i](Infrastructure builders)[/i][/size]
+[size=12pt]Utilize our framework for your own MLM projects.
+Secure messaging, N-level depth, and automated network management powered by [b]ZSOZSO[/b].[/size]
+
+[hr]
+
+[size=25pt]⚙️[/size]
+[size=18pt][color=#006064][b]For Root Nodes[/b][/color][/size]
+[size=11pt][i]('Central' Banks)[/i][/size]
+[size=12pt]Establish your own rules, mint/burn CYF, fine-tune your PID controllers,
+and lead your own financial ecosystem independently.[/size]
+
+[hr]
+[size=18pt][b]Everything starts with a stable foundation.[/b][/size]
+[size=12pt]The fuel of the network is [b]ZSOZSO[/b]. Get it now and become part of an MLM framework on Stellar.[/size]
+[hr]
+
+[anchor=Hungarian]
+[size=28pt][color=#006064][b]A Jéghegy Protokoll[/b][/color][/size]
+[size=14pt][color=#00838f]Ne csak a felszínt lásd. Építs stabil jövőt a Stellar blokklánc
+mély és biztonságos MLM infrastruktúráján.[/color][/size]
+[hr]
+
+[size=25pt]🐧[/size]
+[size=18pt][color=#006064][b]Pingvineknek[/b][/color][/size]
+[size=11pt][i](befektetők, kereskedők)[/i][/size]
+[size=12pt]Válassz egy jéghegyet, és verj/égess [b]CYBERFORINT-ot (CYF)[/b].
+Saját árfolyammozgás, algoritmus által védett érték és zéró központi manipuláció.[/size]
+
+[hr]
+
+[size=25pt]🏗️[/size]
+[size=18pt][color=#33691e][b]Fejlesztőknek[/b][/color][/size]
+[size=11pt][i](Infrastruktúra építők)[/i][/size]
+[size=12pt]Használd a framework-öt saját MLM projektjeidhez.
+Biztonságos üzenetküldés, 6 szintű mélység és automatizált hálózatkezelés [b]ZSOZSO[/b] alapon.[/size]
+
+[hr]
+
+[size=25pt]⚙️[/size]
+[size=18pt][color=#006064][b]Jéghegy csúcsoknak[/b][/color][/size]
+[size=11pt][i]('Központi' bank szerep)[/i][/size]
+[size=12pt]Alakíts ki saját szabályokat, bocsájtass ki és vonj vissza CYF-et,
+állítsd be a PID szabályozókat, és vezesd függetlenül a saját pénzügyi ökoszisztémádat.[/size]
+
+[hr]
+[size=16pt][b]Minden egy stabil alappal kezdődik.[/b][/size]
+[size=12pt]A hálózat üzemanyaga a [b]ZSOZSO[/b]. Szerezd be most, és légy része egy MLM keretrendszernek.[/size]
+[/center]
