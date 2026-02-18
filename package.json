@@ -1,12 +1,12 @@
 {
-  "name": " ",
+  "name": "zsozso-webpage",
   "version": "0.0.1",
-  "description": "",
+  "description": "The Iceberg Protocol website",
   "keywords": "",
   "license": "",
   "author": "",
   "scripts": {
-    "build": "parcel build index.html 404.html",
+    "build": "parcel build index.html 404.html allocation.html contact.html faq.html opentasks.html timeline.html whitepaper.html --public-url ./",
     "dev": "parcel index.html --open",
     "start": "npm run build && npm run dev",
     "test": "echo \"Error: no test specified\" && exit 1"
