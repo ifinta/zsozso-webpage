@@ -40,10 +40,11 @@ Total supply: **100,000,000,000 ZSOZSO**
 
 ## Links
 
+- **bitcointalk.org:** [Bitcointalk announcements](https://bitcointalk.org/index.php?topic=5492539.msg63935024#msg63935024)
 - **ZSOZSO on Stellar Expert:** [View Asset →](https://stellar.expert/explorer/public/asset/ZSOZSO-GDZKLEYJ54QUIEYE4DUUOCIJDUS7R5MDW5MCAB3XTUGPJ3C7SSZJRQUC)
 - **Desktop App:** [zsozso-dioxus](https://github.com/ifinta/zsozso-dioxus) — Rust/Dioxus wallet for key management and transaction signing
 - **Bluesky:** [zsozsoonstellar.bsky.social](https://bsky.app/profile/zsozsoonstellar.bsky.social)
-- **Discord:** [Join the community](https://discord.gg/CvsGETXYJH)
+- **Discord:** [Join through a member, this invite not more valid](https://discord.gg/CvsGETXYJH)
 
 ## Local Development
 
