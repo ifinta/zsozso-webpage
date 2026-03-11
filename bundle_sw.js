@@ -497,6 +497,13 @@ function buildPwaHeadTags(prefix) {
     // Build a modified manifest with data-URI icon sources
     const mfPath = path.join(srcFolder, pwaManifestFile);
     const manifest = JSON.parse(fs.readFileSync(mfPath, 'utf8'));
+
+    // Blob URLs break relative path resolution in Firefox/Safari.
+    // Force absolute paths based on the deployment prefix.
+    manifest.start_url = prefix;
+    manifest.scope = prefix;
+    manifest.id = prefix;
+
     if (manifest.icons) {
         manifest.icons = manifest.icons.map(ic => {
             const icFile = ic.src.replace(/^\//, '');
@@ -564,7 +571,7 @@ if ('serviceWorker' in navigator) {
       if (navigator.serviceWorker.controller) doReload();
     }, 100);
 
-    navigator.serviceWorker.register('${prefix}sw.js', { scope: '${prefix}' });
+    navigator.serviceWorker.register('${prefix}sw.js', { scope: '${prefix}', updateViaCache: 'none' });
   }
 } else {
   document.body.innerHTML = '<p>Service Workers are not supported in this browser.</p>';
@@ -686,7 +693,7 @@ if ('serviceWorker' in navigator) {
     setInterval(function() {
       if (navigator.serviceWorker.controller) doReload();
     }, 100);
-    navigator.serviceWorker.register('${prefix}sw.js', { scope: '${prefix}' });
+    navigator.serviceWorker.register('${prefix}sw.js', { scope: '${prefix}', updateViaCache: 'none' });
   }
 } else {
   document.body.innerHTML = '<p>Service Workers are not supported in this browser.</p>';
