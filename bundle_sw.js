@@ -258,8 +258,15 @@ function generateBootloader(prefix) {
     return `<!DOCTYPE html>
 <html><head><meta charset="UTF-8"><title>Loading…</title>
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<style>body{display:flex;align-items:center;justify-content:center;height:100vh;margin:0;font-family:sans-serif;background:#f5f5f5;color:#333}
-.spinner{width:40px;height:40px;border:4px solid #ddd;border-top-color:#17a2b8;border-radius:50%;animation:spin .8s linear infinite}
+<meta name="theme-color" content="#e3f2fd">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Zsozso">
+<link rel="manifest" href="${prefix}site.webmanifest">
+<link rel="apple-touch-icon" href="${prefix}icon.png">
+<link rel="icon" type="image/x-icon" href="${prefix}favicon.ico">
+<style>body{display:flex;align-items:center;justify-content:center;height:100vh;margin:0;font-family:sans-serif;background:#e3f2fd;color:#333}
+.spinner{width:40px;height:40px;border:4px solid #ddd;border-top-color:#00acc1;border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}</style></head>
 <body><div style="text-align:center"><div class="spinner" style="margin:0 auto 16px"></div><p>Loading app…</p></div>
 <script>
@@ -380,8 +387,15 @@ function generateDataBootloader(prefix, dataSection) {
     return `<!DOCTYPE html>
 <html><head><meta charset="UTF-8"><title>Loading…</title>
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<style>body{display:flex;align-items:center;justify-content:center;height:100vh;margin:0;font-family:sans-serif;background:#f5f5f5;color:#333}
-.spinner{width:40px;height:40px;border:4px solid #ddd;border-top-color:#17a2b8;border-radius:50%;animation:spin .8s linear infinite}
+<meta name="theme-color" content="#e3f2fd">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Zsozso">
+<link rel="manifest" href="${prefix}site.webmanifest">
+<link rel="apple-touch-icon" href="${prefix}icon.png">
+<link rel="icon" type="image/x-icon" href="${prefix}favicon.ico">
+<style>body{display:flex;align-items:center;justify-content:center;height:100vh;margin:0;font-family:sans-serif;background:#e3f2fd;color:#333}
+.spinner{width:40px;height:40px;border:4px solid #ddd;border-top-color:#00acc1;border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}</style></head>
 <body><div style="text-align:center"><div class="spinner" style="margin:0 auto 16px"></div><p>Loading app…</p></div>
 ${dataSection}
