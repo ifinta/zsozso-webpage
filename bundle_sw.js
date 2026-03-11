@@ -22,6 +22,10 @@
  *   -logging    Full logging — injects a ring-buffer log system into the generated
  *               sw.js: LOG/ERR with forwarding to clients, message handler for
  *               GET_LOGS / CLEAR_LOGS / GET_VERSION.
+ *   -raw        Raw PWA assets — copies manifest, icons and favicon as physical
+ *               files to the deploy folder.  Without this flag, those assets are
+ *               embedded as data-URIs / blob URL inside the bootloader HTML
+ *               (no extra files needed).
  *
  * Arguments:
  *   source-folder  Build output (e.g. dist/app/)
@@ -42,7 +46,7 @@ const zlib = require('zlib');
 
 // ── CLI args ─────────────────────────────────────────────────────────────────
 const MODE_FLAGS     = ['-z', '-c', '-j', '-r'];
-const MODIFIER_FLAGS = ['-dioxus', '-logging'];
+const MODIFIER_FLAGS = ['-dioxus', '-logging', '-raw'];
 const ALL_FLAGS      = [...MODE_FLAGS, ...MODIFIER_FLAGS];
 const rawArgs        = process.argv.slice(2);
 const modeExternal   = rawArgs.includes('-z');
@@ -51,6 +55,7 @@ const modeJson       = rawArgs.includes('-j');
 const modeRemark     = rawArgs.includes('-r');
 const modeDioxus     = rawArgs.includes('-dioxus');
 const modeLogging    = rawArgs.includes('-logging');
+const modeRaw        = rawArgs.includes('-raw');
 const positional     = rawArgs.filter(a => !ALL_FLAGS.includes(a));
 
 const activeFlags = MODE_FLAGS.filter(f => rawArgs.includes(f));
@@ -444,6 +449,8 @@ let pwaThemeColor = '#f5f5f5';
 let pwaManifestFile = null;
 let pwaIconFile   = 'icon.png';
 let pwaFaviconFile = 'favicon.ico';
+let pwaIconFiles  = [];    // all icon files from manifest (for deploy)
+let pwaIconData   = {};   // file → base64 data URI (for embedded mode)
 
 for (const mf of ['manifest.json', 'site.webmanifest']) {
     const mfPath = path.join(srcFolder, mf);
@@ -455,31 +462,81 @@ for (const mf of ['manifest.json', 'site.webmanifest']) {
             pwaThemeColor = manifest.theme_color || pwaThemeColor;
             pwaManifestFile = mf;
             if (manifest.icons && manifest.icons.length > 0) {
+                pwaIconFiles = manifest.icons.map(ic => ic.src.replace(/^\//, ''));
                 const icon = manifest.icons.find(ic => ic.sizes === '192x192')
                           || manifest.icons[0];
                 pwaIconFile = icon.src.replace(/^\//, '');
+                // Read icon files for embedded mode
+                for (const ic of manifest.icons) {
+                    const icFile = ic.src.replace(/^\//, '');
+                    const icPath = path.join(srcFolder, icFile);
+                    if (fs.existsSync(icPath)) {
+                        const icBuf = fs.readFileSync(icPath);
+                        const icMime = ic.type || MIME_BY_EXT[path.extname(icFile).toLowerCase()] || 'image/png';
+                        pwaIconData[icFile] = `data:${icMime};base64,${icBuf.toString('base64')}`;
+                    }
+                }
             }
         } catch (e) { /* ignore parse errors */ }
         break;
     }
 }
-const pwaManifestLink = pwaManifestFile
-    ? `<link rel="manifest" href="\${prefix}${pwaManifestFile}">`
-    : '';
+
+// ── Build PWA <head> tags (embedded data URIs vs raw file links) ─────────────
+function buildPwaHeadTags(prefix) {
+    if (modeRaw || !pwaManifestFile) {
+        // -raw mode: simple link tags pointing to physical files
+        const manifestTag = pwaManifestFile
+            ? `\n<link rel="manifest" href="${prefix}${pwaManifestFile}">` : '';
+        const touchIcon = `\n<link rel="apple-touch-icon" href="${prefix}${pwaIconFile}">`;
+        const favicon   = `\n<link rel="icon" type="image/x-icon" href="${prefix}${pwaFaviconFile}">`;
+        return manifestTag + touchIcon + favicon;
+    }
+
+    // Embedded mode: inline manifest as blob URL, icons as data URIs
+    // Build a modified manifest with data-URI icon sources
+    const mfPath = path.join(srcFolder, pwaManifestFile);
+    const manifest = JSON.parse(fs.readFileSync(mfPath, 'utf8'));
+    if (manifest.icons) {
+        manifest.icons = manifest.icons.map(ic => {
+            const icFile = ic.src.replace(/^\//, '');
+            if (pwaIconData[icFile]) {
+                return { ...ic, src: pwaIconData[icFile] };
+            }
+            return ic;
+        });
+    }
+    const manifestJson = JSON.stringify(manifest);
+    const touchIconDataUri = pwaIconData[pwaIconFile] || `${prefix}${pwaIconFile}`;
+    const faviconPath = path.join(srcFolder, pwaFaviconFile);
+    let faviconDataUri = `${prefix}${pwaFaviconFile}`;
+    if (fs.existsSync(faviconPath)) {
+        const favBuf = fs.readFileSync(faviconPath);
+        faviconDataUri = `data:image/x-icon;base64,${favBuf.toString('base64')}`;
+    }
+
+    return `
+<link rel="manifest" id="__pwa_manifest">
+<link rel="apple-touch-icon" href="${touchIconDataUri}">
+<link rel="icon" type="image/x-icon" href="${faviconDataUri}">
+<script>
+(function(){
+  var m = ${JSON.stringify(manifestJson)};
+  var b = new Blob([m], {type: 'application/manifest+json'});
+  document.getElementById('__pwa_manifest').href = URL.createObjectURL(b);
+})();
+</script>`;
+}
 
 function generateBootloader(prefix) {
-    const manifestLink = pwaManifestFile
-        ? `\n<link rel="manifest" href="${prefix}${pwaManifestFile}">`
-        : '';
+    const pwaTags = buildPwaHeadTags(prefix);
     return `<!DOCTYPE html>
 <html><head><meta charset="UTF-8"><title>Loading…</title>
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="theme-color" content="${pwaThemeColor}">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="${pwaShortName}">${manifestLink}
-<link rel="apple-touch-icon" href="${prefix}${pwaIconFile}">
-<link rel="icon" type="image/x-icon" href="${prefix}${pwaFaviconFile}">
+<meta name="apple-mobile-web-app-title" content="${pwaShortName}">${pwaTags}
 <style>body{display:flex;align-items:center;justify-content:center;height:100vh;margin:0;font-family:sans-serif;background:${pwaThemeColor};color:#333}
 .spinner{width:40px;height:40px;border:4px solid #ddd;border-top-color:#00acc1;border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}</style></head>
@@ -599,18 +656,14 @@ ${dataSection}
 
 // ── Bootloader that carries a single file (app index.html) ───────────────────
 function generateDataBootloader(prefix, dataSection) {
-    const manifestLink = pwaManifestFile
-        ? `\n<link rel="manifest" href="${prefix}${pwaManifestFile}">`
-        : '';
+    const pwaTags = buildPwaHeadTags(prefix);
     return `<!DOCTYPE html>
 <html><head><meta charset="UTF-8"><title>Loading…</title>
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="theme-color" content="${pwaThemeColor}">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="${pwaShortName}">${manifestLink}
-<link rel="apple-touch-icon" href="${prefix}${pwaIconFile}">
-<link rel="icon" type="image/x-icon" href="${prefix}${pwaFaviconFile}">
+<meta name="apple-mobile-web-app-title" content="${pwaShortName}">${pwaTags}
 <style>body{display:flex;align-items:center;justify-content:center;height:100vh;margin:0;font-family:sans-serif;background:${pwaThemeColor};color:#333}
 .spinner{width:40px;height:40px;border:4px solid #ddd;border-top-color:#00acc1;border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}</style></head>
@@ -802,12 +855,35 @@ ${generateServeHelpers()}${generateFetchHandler(basePrefix)}`;
 fs.writeFileSync(path.join(outFolder, 'sw.js'), outputSw, 'utf8');
 fs.writeFileSync(path.join(outFolder, 'index.html'), outputHtml, 'utf8');
 
+// ── Copy critical PWA files as physical files (-raw mode) ────────────────────
+// With -raw, the manifest, icons, and favicon are deployed as real files so the
+// browser can fetch them before the service worker is active.
+// Without -raw (default), they are embedded as data URIs / blob URL inside the
+// bootloader HTML — no extra files needed.
+const copied = [];
+if (modeRaw) {
+    const pwaCopyFiles = new Set();
+    if (pwaManifestFile) pwaCopyFiles.add(pwaManifestFile);
+    pwaIconFiles.forEach(f => pwaCopyFiles.add(f));
+    if (fs.existsSync(path.join(srcFolder, pwaFaviconFile))) pwaCopyFiles.add(pwaFaviconFile);
+
+    for (const rel of pwaCopyFiles) {
+        const src = path.join(srcFolder, rel);
+        if (fs.existsSync(src)) {
+            const dest = path.join(outFolder, rel);
+            fs.mkdirSync(path.dirname(dest), { recursive: true });
+            fs.copyFileSync(src, dest);
+            copied.push(rel);
+        }
+    }
+}
+
 // ── Summary ──────────────────────────────────────────────────────────────────
 const swSize   = Buffer.byteLength(outputSw, 'utf8');
 const htmlSize = Buffer.byteLength(outputHtml, 'utf8');
 const LABELS = { z: 'external-gz (-z)', c: 'inline-gz (-c)', j: 'json-in-html (-j)', r: 'remark-html (-r)' };
 const modeLabel = activeFlags.length ? LABELS[activeFlags[0].slice(1)] : 'inline';
-const modifiers = [modeDioxus && 'dioxus', modeLogging && 'logging'].filter(Boolean);
+const modifiers = [modeDioxus && 'dioxus', modeLogging && 'logging', modeRaw && 'raw'].filter(Boolean);
 const modLabel  = modifiers.length ? ` + ${modifiers.join(' + ')}` : '';
 console.log(`Bundled ${allFiles.length} files — ${modeLabel}${modLabel} mode`);
 console.log(`  PWA: ${pwaShortName} (${pwaName}), theme: ${pwaThemeColor}`);
@@ -823,6 +899,11 @@ if (usePerFileGzip) {
     console.log(`  Compressed assets: ${(totalCompact / 1024).toFixed(1)} KB (${(100 * totalCompact / totalRaw).toFixed(0)}% of raw)`);
 }
 console.log(`  Deploy folder: ${outFolder}/`);
+if (copied.length > 0) {
+    console.log(`  PWA files copied (-raw): ${copied.join(', ')}`);
+} else if (pwaManifestFile) {
+    console.log(`  PWA assets embedded: manifest + ${pwaIconFiles.length} icon(s) + favicon`);
+}
 console.log('');
 for (const relPath of allFiles) {
     const size = fs.statSync(path.join(srcFolder, relPath)).size;
