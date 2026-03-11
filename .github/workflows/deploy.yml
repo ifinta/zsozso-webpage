@@ -33,13 +33,16 @@ jobs:
       - name: Build with Parcel
         run: npm run build
 
+      - name: Bundle for offline PWA
+        run: npm run deploy
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: dist
+          path: deploy
 
   deploy:
     environment:

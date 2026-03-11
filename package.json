@@ -9,6 +9,8 @@
     "build": "parcel build index.html 404.html allocation.html contact.html faq.html opentasks.html timeline.html whitepaper.html --public-url ./",
     "dev": "parcel index.html --open",
     "start": "npm run build && npm run dev",
+    "predeploy": "npm run build && cp sw.js dist/sw.js",
+    "deploy": "node bundle_sw.js -j dist deploy",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
