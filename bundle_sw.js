@@ -2,9 +2,9 @@
 /**
  * bundle_sw.js — Bundle all build assets into a service-worker deployment.
  *
- * Usage:  node bundle_sw.js [-z|-c|-j|-r] <source-folder> <deploy-folder> [base-path]
+ * Usage:  node bundle_sw.js [mode] [modifiers] <source-folder> <deploy-folder> [base-path]
  *
- * Flags (mutually exclusive — pick one, or omit for plain inline):
+ * Mode flags (mutually exclusive — pick one, or omit for plain inline):
  *   (none)  Inline mode      — raw base64 assets inside sw.js.  Output: 2 files.
  *   -c      Compact mode     — per-file gzip+base64 inside sw.js.  Output: 2 files.
  *   -z      External mode    — gzipped JSON in assets.json.gz.  Output: 3 files.
@@ -15,17 +15,25 @@
  *                               SW fetches + extracts between markers.
  *                               Output: 2 files (index.html + sw.js).
  *
+ * Modifier flags (combinable with any mode):
+ *   -dioxus     Dioxus SPA mode — all navigation serves index.html (client-side
+ *               routing).  Without this flag, multi-page navigation resolves each
+ *               pathname to its own HTML file.
+ *   -logging    Full logging — injects a ring-buffer log system into the generated
+ *               sw.js: LOG/ERR with forwarding to clients, message handler for
+ *               GET_LOGS / CLEAR_LOGS / GET_VERSION.
+ *
  * Arguments:
  *   source-folder  Build output (e.g. dist/app/)
  *   deploy-folder  Root of deploy tree (e.g. deploy/)
  *   base-path      Optional sub-path the app is served under, e.g. "app"
  *
  * Examples:
- *   node bundle_sw.js dist/app deploy app       →  inline       (~5.4 MB sw.js)
- *   node bundle_sw.js -c dist/app deploy app    →  compact      (~2.2 MB sw.js)
- *   node bundle_sw.js -z dist/app deploy app    →  external     (~7 KB sw.js + ~2.1 MB .gz)
- *   node bundle_sw.js -j dist/app deploy app    →  json-in-html (~2.2 MB index.html + ~7 KB sw.js)
- *   node bundle_sw.js -r dist/app deploy app    →  remark-html  (~2.2 MB index.html + ~7 KB sw.js)
+ *   node bundle_sw.js dist/app deploy app                    →  inline
+ *   node bundle_sw.js -c dist/app deploy app                 →  compact
+ *   node bundle_sw.js -z dist/app deploy app                 →  external
+ *   node bundle_sw.js -j dist/app deploy app                 →  json-in-html
+ *   node bundle_sw.js -j -dioxus -logging dist deploy app    →  json + Dioxus SPA + logging
  */
 
 const fs   = require('fs');
@@ -33,17 +41,21 @@ const path = require('path');
 const zlib = require('zlib');
 
 // ── CLI args ─────────────────────────────────────────────────────────────────
-const FLAGS = ['-z', '-c', '-j', '-r'];
-const rawArgs       = process.argv.slice(2);
-const modeExternal  = rawArgs.includes('-z');
-const modeCompact   = rawArgs.includes('-c');
-const modeJson      = rawArgs.includes('-j');
-const modeRemark    = rawArgs.includes('-r');
-const positional    = rawArgs.filter(a => !FLAGS.includes(a));
+const MODE_FLAGS     = ['-z', '-c', '-j', '-r'];
+const MODIFIER_FLAGS = ['-dioxus', '-logging'];
+const ALL_FLAGS      = [...MODE_FLAGS, ...MODIFIER_FLAGS];
+const rawArgs        = process.argv.slice(2);
+const modeExternal   = rawArgs.includes('-z');
+const modeCompact    = rawArgs.includes('-c');
+const modeJson       = rawArgs.includes('-j');
+const modeRemark     = rawArgs.includes('-r');
+const modeDioxus     = rawArgs.includes('-dioxus');
+const modeLogging    = rawArgs.includes('-logging');
+const positional     = rawArgs.filter(a => !ALL_FLAGS.includes(a));
 
-const activeFlags = FLAGS.filter(f => rawArgs.includes(f));
+const activeFlags = MODE_FLAGS.filter(f => rawArgs.includes(f));
 if (activeFlags.length > 1) {
-    console.error(`Error: flags ${activeFlags.join(', ')} are mutually exclusive — pick one`);
+    console.error(`Error: mode flags ${activeFlags.join(', ')} are mutually exclusive — pick one`);
     process.exit(1);
 }
 
@@ -132,6 +144,168 @@ function removeFetchListener(code) {
 
 swContent = removeFetchListener(swContent);
 
+// ── Block removal helpers (used by -logging) ─────────────────────────────────
+
+/** Remove a brace-delimited block: const X = () => { … };  or  function X() { … } */
+function removeBlock(code, marker) {
+    const idx = code.indexOf(marker);
+    if (idx === -1) return code;
+
+    // Start of the line containing marker
+    let lineStart = idx;
+    while (lineStart > 0 && code[lineStart - 1] !== '\n') lineStart--;
+
+    // Eat preceding comment / blank lines
+    while (lineStart > 0) {
+        let pEnd = lineStart - 1;
+        let pStart = pEnd;
+        while (pStart > 0 && code[pStart - 1] !== '\n') pStart--;
+        const line = code.substring(pStart, pEnd).trim();
+        if (line.startsWith('//') || line === '') lineStart = pStart;
+        else break;
+    }
+
+    // Track { } to find end
+    let depth = 0, braceFound = false, end = idx;
+    for (let i = idx; i < code.length; i++) {
+        if (code[i] === '{') { depth++; braceFound = true; }
+        else if (code[i] === '}') {
+            depth--;
+            if (braceFound && depth === 0) {
+                end = i + 1;
+                if (end < code.length && code[end] === ';') end++;
+                while (end < code.length && code[end] === '\n') end++;
+                break;
+            }
+        } else if (!braceFound && code[i] === ';') {
+            // One-liner without braces (e.g. const x = [];)
+            end = i + 1;
+            while (end < code.length && code[end] === '\n') end++;
+            break;
+        }
+    }
+    return code.substring(0, lineStart) + code.substring(end);
+}
+
+/** Remove a paren-delimited addEventListener block (same approach as removeFetchListener) */
+function removeEventListenerBlock(code, eventName) {
+    const marker = `self.addEventListener('${eventName}'`;
+    const idx = code.indexOf(marker);
+    if (idx === -1) return code;
+
+    let lineStart = idx;
+    while (lineStart > 0 && code[lineStart - 1] !== '\n') lineStart--;
+
+    while (lineStart > 0) {
+        let pEnd = lineStart - 1;
+        let pStart = pEnd;
+        while (pStart > 0 && code[pStart - 1] !== '\n') pStart--;
+        const line = code.substring(pStart, pEnd).trim();
+        if (line.startsWith('//') || line === '') lineStart = pStart;
+        else break;
+    }
+
+    let depth = 0, started = false, end = idx;
+    for (let i = idx; i < code.length; i++) {
+        if (code[i] === '(') { depth++; started = true; }
+        else if (code[i] === ')') {
+            depth--;
+            if (started && depth === 0) {
+                end = i + 1;
+                if (end < code.length && code[end] === ';') end++;
+                while (end < code.length && code[end] === '\n') end++;
+                break;
+            }
+        }
+    }
+    return code.substring(0, lineStart) + code.substring(end);
+}
+
+// ── Inject full logging infrastructure (-logging) ────────────────────────────
+if (modeLogging) {
+    // Strip existing logging definitions so we can inject the complete version
+    swContent = removeBlock(swContent, 'const _swLogBuffer');
+    swContent = removeBlock(swContent, 'const _SW_LOG_MAX');
+    swContent = removeBlock(swContent, 'function _ts(');
+    swContent = removeBlock(swContent, 'function _forward(');
+    swContent = removeBlock(swContent, 'const LOG =');
+    swContent = removeBlock(swContent, 'const ERR =');
+
+    // Remove existing message handler only if it handles GET_LOGS
+    const msgIdx = swContent.indexOf("self.addEventListener('message'");
+    if (msgIdx !== -1 && swContent.substring(msgIdx, msgIdx + 500).includes('GET_LOGS')) {
+        swContent = removeEventListenerBlock(swContent, 'message');
+    }
+
+    // Remove stale LOG('Script evaluated') call (re-injected in the block below)
+    swContent = swContent.replace(/^LOG\('Script evaluated'\);?\s*\n/m, '');
+
+    // Find insertion point: after the CACHE_NAME line
+    const cacheIdx = swContent.indexOf('CACHE_NAME');
+    if (cacheIdx === -1) {
+        console.error('Error: -logging requires a CACHE_NAME constant in sw.js');
+        process.exit(1);
+    }
+    const cacheLineEnd = swContent.indexOf('\n', cacheIdx);
+
+    const loggingBlock = `
+// ── SW-side log ring buffer (max 100, generated by bundle_sw.js -logging) ──
+const _swLogBuffer = [];
+const _SW_LOG_MAX = 100;
+
+function _ts() {
+    const d = new Date();
+    return d.toLocaleTimeString('en-GB', { hour12: false }) + '.' +
+        String(d.getMilliseconds()).padStart(3, '0');
+}
+
+// Forward log lines to the main page so the in-app Log tab can display them
+function _forward(text) {
+    self.clients.matchAll({ type: 'window' }).then(clients => {
+        clients.forEach(c => c.postMessage({ type: '__SW_LOG', text: text }));
+    });
+}
+
+const LOG = (...args) => {
+    const text = args.map(a => typeof a === 'string' ? a : JSON.stringify(a)).join(' ');
+    const entry = _ts() + ' ' + CACHE_NAME + ' [SW] ' + text;
+    _swLogBuffer.push(entry);
+    if (_swLogBuffer.length > _SW_LOG_MAX) _swLogBuffer.shift();
+    console.log(\`[SW \${CACHE_NAME}]\`, ...args);
+    _forward(entry);
+};
+
+const ERR = (...args) => {
+    const text = args.map(a => typeof a === 'string' ? a : JSON.stringify(a)).join(' ');
+    const entry = _ts() + ' ' + CACHE_NAME + ' [SW ERR] ' + text;
+    _swLogBuffer.push(entry);
+    if (_swLogBuffer.length > _SW_LOG_MAX) _swLogBuffer.shift();
+    console.error(\`[SW \${CACHE_NAME}]\`, ...args);
+    _forward(entry);
+};
+
+self.addEventListener('message', event => {
+    if (event.data && event.data.type === 'GET_LOGS') {
+        event.ports[0].postMessage({ logs: _swLogBuffer.slice() });
+        return;
+    }
+    if (event.data && event.data.type === 'CLEAR_LOGS') {
+        _swLogBuffer.length = 0;
+        return;
+    }
+    LOG('Message received:', event.data);
+    if (event.data && event.data.type === 'GET_VERSION') {
+        event.ports[0].postMessage({ version: CACHE_NAME });
+        LOG('Replied with version:', CACHE_NAME);
+    }
+});
+
+LOG('Script evaluated');
+`;
+
+    swContent = swContent.substring(0, cacheLineEnd + 1) + loggingBlock + swContent.substring(cacheLineEnd + 1);
+}
+
 // ── Build the ASSETS and MIME objects ────────────────────────────────────────
 const assets = {};
 const compactAssets = {};  // gzip+base64 per file (used by -c, -j, -r modes)
@@ -195,10 +369,10 @@ function _serve404(pathname) {
 function generateFetchHandler(prefix) {
     // -z, -j, -r modes load assets asynchronously; inline/-c serve synchronously
     const isAsync = modeExternal || modeJson || modeRemark;
-    return `
-// Baked-in base path prefix for stripping (set by bundle_sw.js).
-var __BASE_PREFIX = '${prefix}';
+    const spaMode = modeDioxus;
 
+    // Navigation handler: SPA → always index.html; multi-page → resolve pathname
+    const navResolve = spaMode ? '' : `
 // Resolve a navigation pathname to the embedded-asset key.
 // Multi-page: /timeline.html → "timeline.html", / → "index.html"
 function _resolveNavKey(pathname) {
@@ -211,19 +385,28 @@ function _resolveNavKey(pathname) {
     if (!rel || rel.endsWith('/')) rel += 'index.html';
     return rel;
 }
+`;
+    const navKeyDecl = spaMode ? '' : '        var navKey = _resolveNavKey(url.pathname);\n';
+    const navTarget  = spaMode ? "'index.html'" : "navKey";
+    const navFallback = spaMode
+        ? ''                   // SPA: index.html is the only target, no fallback chain
+        : " || _serveEmbedded('index.html')";
 
+    return `
+// Baked-in base path prefix for stripping (set by bundle_sw.js).
+var __BASE_PREFIX = '${prefix}';
+${navResolve}
 self.addEventListener('fetch', function(event) {
     var url = new URL(event.request.url);
 ${modeExternal ? `
     // Let the asset bundle pass through to network
     if (url.origin === self.location.origin && url.pathname.endsWith('assets.json.gz')) return;
 ` : ''}
-    // Navigation requests → serve the correct embedded HTML page
+    // Navigation requests → serve ${spaMode ? 'index.html (SPA / client-side routing)' : 'the correct embedded HTML page'}
     if (event.request.mode === 'navigate') {
-        var navKey = _resolveNavKey(url.pathname);
-        ${isAsync
-            ? "event.respondWith(_loadAssets().then(function() { return _serveEmbedded(navKey) || _serveEmbedded('index.html') || _serve404(url.pathname); }));"
-            : "var resp = _serveEmbedded(navKey) || _serveEmbedded('index.html');\n        if (resp) { event.respondWith(resp); return; }\n        event.respondWith(_serve404(url.pathname));"}
+${navKeyDecl}        ${isAsync
+            ? `event.respondWith(_loadAssets().then(function() { return _serveEmbedded(${navTarget})${navFallback} || _serve404(url.pathname); }));`
+            : `var resp = _serveEmbedded(${navTarget})${navFallback};\n        if (resp) { event.respondWith(resp); return; }\n        event.respondWith(_serve404(url.pathname));`}
         return;
     }
 
@@ -254,18 +437,50 @@ ${modeExternal ? `
 `;
 }
 
+// ── Read PWA metadata from source manifest ───────────────────────────────────
+let pwaName       = 'App';
+let pwaShortName  = 'App';
+let pwaThemeColor = '#f5f5f5';
+let pwaManifestFile = null;
+let pwaIconFile   = 'icon.png';
+let pwaFaviconFile = 'favicon.ico';
+
+for (const mf of ['manifest.json', 'site.webmanifest']) {
+    const mfPath = path.join(srcFolder, mf);
+    if (fs.existsSync(mfPath)) {
+        try {
+            const manifest = JSON.parse(fs.readFileSync(mfPath, 'utf8'));
+            pwaName      = manifest.name || pwaName;
+            pwaShortName = manifest.short_name || pwaShortName;
+            pwaThemeColor = manifest.theme_color || pwaThemeColor;
+            pwaManifestFile = mf;
+            if (manifest.icons && manifest.icons.length > 0) {
+                const icon = manifest.icons.find(ic => ic.sizes === '192x192')
+                          || manifest.icons[0];
+                pwaIconFile = icon.src.replace(/^\//, '');
+            }
+        } catch (e) { /* ignore parse errors */ }
+        break;
+    }
+}
+const pwaManifestLink = pwaManifestFile
+    ? `<link rel="manifest" href="\${prefix}${pwaManifestFile}">`
+    : '';
+
 function generateBootloader(prefix) {
+    const manifestLink = pwaManifestFile
+        ? `\n<link rel="manifest" href="${prefix}${pwaManifestFile}">`
+        : '';
     return `<!DOCTYPE html>
 <html><head><meta charset="UTF-8"><title>Loading…</title>
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="theme-color" content="#e3f2fd">
+<meta name="theme-color" content="${pwaThemeColor}">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Zsozso">
-<link rel="manifest" href="${prefix}site.webmanifest">
-<link rel="apple-touch-icon" href="${prefix}icon.png">
-<link rel="icon" type="image/x-icon" href="${prefix}favicon.ico">
-<style>body{display:flex;align-items:center;justify-content:center;height:100vh;margin:0;font-family:sans-serif;background:#e3f2fd;color:#333}
+<meta name="apple-mobile-web-app-title" content="${pwaShortName}">${manifestLink}
+<link rel="apple-touch-icon" href="${prefix}${pwaIconFile}">
+<link rel="icon" type="image/x-icon" href="${prefix}${pwaFaviconFile}">
+<style>body{display:flex;align-items:center;justify-content:center;height:100vh;margin:0;font-family:sans-serif;background:${pwaThemeColor};color:#333}
 .spinner{width:40px;height:40px;border:4px solid #ddd;border-top-color:#00acc1;border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}</style></head>
 <body><div style="text-align:center"><div class="spinner" style="margin:0 auto 16px"></div><p>Loading app…</p></div>
@@ -384,17 +599,19 @@ ${dataSection}
 
 // ── Bootloader that carries a single file (app index.html) ───────────────────
 function generateDataBootloader(prefix, dataSection) {
+    const manifestLink = pwaManifestFile
+        ? `\n<link rel="manifest" href="${prefix}${pwaManifestFile}">`
+        : '';
     return `<!DOCTYPE html>
 <html><head><meta charset="UTF-8"><title>Loading…</title>
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="theme-color" content="#e3f2fd">
+<meta name="theme-color" content="${pwaThemeColor}">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Zsozso">
-<link rel="manifest" href="${prefix}site.webmanifest">
-<link rel="apple-touch-icon" href="${prefix}icon.png">
-<link rel="icon" type="image/x-icon" href="${prefix}favicon.ico">
-<style>body{display:flex;align-items:center;justify-content:center;height:100vh;margin:0;font-family:sans-serif;background:#e3f2fd;color:#333}
+<meta name="apple-mobile-web-app-title" content="${pwaShortName}">${manifestLink}
+<link rel="apple-touch-icon" href="${prefix}${pwaIconFile}">
+<link rel="icon" type="image/x-icon" href="${prefix}${pwaFaviconFile}">
+<style>body{display:flex;align-items:center;justify-content:center;height:100vh;margin:0;font-family:sans-serif;background:${pwaThemeColor};color:#333}
 .spinner{width:40px;height:40px;border:4px solid #ddd;border-top-color:#00acc1;border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}</style></head>
 <body><div style="text-align:center"><div class="spinner" style="margin:0 auto 16px"></div><p>Loading app…</p></div>
@@ -590,7 +807,10 @@ const swSize   = Buffer.byteLength(outputSw, 'utf8');
 const htmlSize = Buffer.byteLength(outputHtml, 'utf8');
 const LABELS = { z: 'external-gz (-z)', c: 'inline-gz (-c)', j: 'json-in-html (-j)', r: 'remark-html (-r)' };
 const modeLabel = activeFlags.length ? LABELS[activeFlags[0].slice(1)] : 'inline';
-console.log(`Bundled ${allFiles.length} files — ${modeLabel} mode`);
+const modifiers = [modeDioxus && 'dioxus', modeLogging && 'logging'].filter(Boolean);
+const modLabel  = modifiers.length ? ` + ${modifiers.join(' + ')}` : '';
+console.log(`Bundled ${allFiles.length} files — ${modeLabel}${modLabel} mode`);
+console.log(`  PWA: ${pwaShortName} (${pwaName}), theme: ${pwaThemeColor}`);
 console.log(`  Base path: ${basePath ? '/' + basePath + '/' : '/ (root)'}`);
 console.log(`  Raw assets: ${(totalRaw / 1024).toFixed(1)} KB`);
 console.log(`  Output sw.js: ${(swSize / 1024).toFixed(1)} KB`);
