@@ -48,7 +48,7 @@ Total supply: **100,000,000,000 ZSOZSO**
 
 ## Local Development
 
-The website is a static HTML site. No build step required.
+The website is a static HTML site. No build step required for development.
 
 ```bash
 # Clone
@@ -65,7 +65,44 @@ Then open [http://localhost:8080](http://localhost:8080) in your browser.
 
 ## Deployment
 
-The site is hosted via **GitHub Pages** from the `main` branch. Any push to `main` automatically updates the live site.
+The site is deployed as an **offline-capable PWA** via GitHub Pages.
+
+A Node.js script (`bundle_sw.js`) compresses the entire `dist/` folder into a
+self-contained deployment with just `index.html` and `sw.js`. All pages, CSS,
+JS, images, and fonts are gzip-compressed, base64-encoded, and embedded inside
+the service worker.
+
+```bash
+# Build the bundled offline deployment:
+npm run deploy
+# Output: deploy/zsozso-webpage/
+
+# Serve locally:
+npx serve deploy/ -l 8080
+# → http://localhost:8080/zsozso-webpage/
+```
+
+**How the offline PWA works:**
+
+1. A bootloader `index.html` registers the service worker and shows a loading
+   spinner
+2. The SW's `install` event unpacks all embedded assets into CacheStorage
+3. On activation, the SW intercepts all fetch requests and serves from cache —
+   every page works fully offline from the first visit
+4. Multi-page navigation (e.g. `/timeline.html`, `/faq.html`) is resolved by
+   the SW from the cache
+5. PWA metadata (manifest, icons) is embedded as data URIs in the bootloader
+
+The CI workflow (`.github/workflows/deploy.yml`) runs `bundle_sw.js` on every
+push to `main` and deploys the result to GitHub Pages.
+
+## PWA Installation
+
+The site can be installed as an app on mobile and desktop:
+
+- **Android Chrome** — Menu (⋮) → "Add to Home screen"
+- **iOS Safari** — Share (↑) → "Add to Home Screen"
+- **Desktop Chrome/Edge** — Address bar install icon
 
 ## License
 
