@@ -1,6 +1,6 @@
 {
   "name": "zsozso-webpage",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "The Iceberg Protocol website",
   "keywords": "",
   "license": "",
@@ -9,8 +9,8 @@
     "build": "parcel build index.html 404.html allocation.html contact.html faq.html opentasks.html timeline.html whitepaper.html --public-url ./",
     "dev": "parcel index.html --open",
     "start": "npm run build && npm run dev",
-    "predeploy": "npm run build && cp sw.js site.webmanifest dist/",
-    "deploy": "node bundle_sw.js -j dist deploy zsozso-webpage",
+    "pre-bundle": "npm run build && cp sw.js site.webmanifest dist/",
+    "bundle": "node bundle.js dist deploy zsozso-webpage",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {

@@ -131,6 +131,10 @@ function generateBootloader(htmlFile, dataSection) {
     const spinner = '\n<div style="text-align:center"><div id="spinner" class="spinner" style="margin:0 auto 16px"></div><p>Loading app\u2026</p></div>';
     html = html.slice(0, bodyPos) + spinner + '\n' + dataSection + html.slice(bodyPos);
 
+    // Remove single-line <script ...href=...>...</script> and <link ...as='script'...href=...> tags
+    html = html.replace(/^[ \t]*<script\b[^>]*\bhref=[^>]*>.*?<\/script>[^\S\n]*\n?/gm, '');
+    html = html.replace(/^[ \t]*<link\b[^>]*\bas=["']script["'][^>]*\bhref=[^>]*\/?>[^\S\n]*\n?/gm, '');
+
     return html;
 }
 
