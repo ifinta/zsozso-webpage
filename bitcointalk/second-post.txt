@@ -1,67 +1,42 @@
-[center]
-[iurl=#Hungarian][size=10pt][b]Magyarul mindez (Click here for Hungarian)[/b][/size][/iurl]
+[iurl=#Hungarian][b]Magyarul mindez (Click here for Hungarian)[/b][/iurl]
 
-[size=32pt][color=#006064][b]The Iceberg Protocol[/b][/color][/size]
-[size=16pt][color=#00838f]Look beyond the surface. Build a stable future on a deep and secure
-MLM infrastructure on the Stellar blockchain.[/color][/size]
-[hr]
+[b]The Iceberg Protocol[/b]
+Look beyond the surface. Build a stable future on a deep and secure MLM infrastructure on the Stellar blockchain.
 
-[size=25pt]🐧[/size]
-[size=18pt][color=#006064][b]For Pingvins[/b][/color][/size]
-[size=11pt][i](Investors, traders)[/i][/size]
-[size=12pt]Choose an iceberg and mint/burn [b]CYBERFORINT (CYF)[/b].
-Independent price movement and algorithmically protected value, zero central manipulation.[/size]
+[url=https://zsozso.info/whitepaper.html]The whitepaper[/url]
 
-[hr]
+[b]🐧 For Pingvins (Investors, traders)[/b]
+Choose an iceberg and mint/burn [b]CYBERFORINT (CYF)[/b]. Independent price movement, algorithmically protected value, and zero central manipulation.
 
-[size=25pt]🏗️[/size]
-[size=18pt][color=#33691e][b]For Developers[/b][/color][/size]
-[size=11pt][i](Infrastructure builders)[/i][/size]
-[size=12pt]Utilize our framework for your own MLM projects.
-Secure messaging, N-level depth, and automated network management powered by [b]ZSOZSO[/b].[/size]
+[b]🏗️ For Developers[/b]
+Utilize our framework for your own MLM projects. Secure messaging, N-level depth, and automated network management—powered by [b]ZSOZSO[/b].
 
-[hr]
+[b]⚙️ For Root Nodes ('Central' Banks)[/b]
+If you got independence: establish your own rules, mint/burn CYF, fine-tune your PID controllers, and lead your own financial ecosystem.
 
-[size=25pt]⚙️[/size]
-[size=18pt][color=#006064][b]For Root Nodes[/b][/color][/size]
-[size=11pt][i]('Central' Banks)[/i][/size]
-[size=12pt]Establish your own rules, mint/burn CYF, fine-tune your PID controllers,
-and lead your own financial ecosystem independently.[/size]
+[b]Everything starts with a stable foundation.[/b]
+The fuel of the network is [b]ZSOZSO[/b]. Get it now and become part of an advanced MLM framework on Stellar.
 
-[hr]
-[size=18pt][b]Everything starts with a stable foundation.[/b][/size]
-[size=12pt]The fuel of the network is [b]ZSOZSO[/b]. Get it now and become part of an MLM framework on Stellar.[/size]
+[url=https://stellar.expert/explorer/public/asset/ZSOZSO-GDZKLEYJ54QUIEYE4DUUOCIJDUS7R5MDW5MCAB3XTUGPJ3C7SSZJRQUC]View ZSOZSO on Explorer →[/url]
+
 [hr]
 
 [anchor=Hungarian]
-[size=28pt][color=#006064][b]A Jéghegy Protokoll[/b][/color][/size]
-[size=14pt][color=#00838f]Ne csak a felszínt lásd. Építs stabil jövőt a Stellar blokklánc
-mély és biztonságos MLM infrastruktúráján.[/color][/size]
-[hr]
+[b]A Jéghegy Protokol[/b]
+Ne csak a felszínt lásd. Építs stabil jövőt a Stellar blokklánc mély és biztonságos MLM infrastruktúráján.
 
-[size=25pt]🐧[/size]
-[size=18pt][color=#006064][b]Pingvineknek[/b][/color][/size]
-[size=11pt][i](befektetők, kereskedők)[/i][/size]
-[size=12pt]Válassz egy jéghegyet, és verj/égess [b]CYBERFORINT-ot (CYF)[/b].
-Saját árfolyammozgás, algoritmus által védett érték és zéró központi manipuláció.[/size]
+[url=https://zsozso.info/whitepaper.html]Az un. whitepaper[/url]
 
-[hr]
+[b]🐧 Pingvineknek (befektetők, kereskedők)[/b]
+Válassz egy kedvednek való jéghegyet, és verj/égess [b]CYBERFORINT-ot (CYF)[/b]. Saját árfolyammozgás, algoritmus által védett érték, zéró központi manipuláció.
 
-[size=25pt]🏗️[/size]
-[size=18pt][color=#33691e][b]Fejlesztőknek[/b][/color][/size]
-[size=11pt][i](Infrastruktúra építők)[/i][/size]
-[size=12pt]Használd a framework-öt saját MLM projektjeidhez.
-Biztonságos üzenetküldés, 6 szintű mélység és automatizált hálózatkezelés [b]ZSOZSO[/b] alapon.[/size]
+[b]🏗️ Fejlesztőknek[/b]
+Használd a framework-ünket saját MLM projektjeidhez. Biztonságos üzenetküldés, 6 szintű mélység és automatizált hálózatkezelés – [b]ZSOZSO[/b] alapon.
 
-[hr]
+[b]⚙️ Jéghegy csúcsoknak ('Központi' bank szerep)[/b]
+Ha függetlenedtél: alakíts ki saját szabályaidat, bocsájtass ki és vonj vissza CYF-et, állítsd be a PID szabályozókat, és vezesd a saját pénzügyi ökoszisztémádat.
 
-[size=25pt]⚙️[/size]
-[size=18pt][color=#006064][b]Jéghegy csúcsoknak[/b][/color][/size]
-[size=11pt][i]('Központi' bank szerep)[/i][/size]
-[size=12pt]Alakíts ki saját szabályokat, bocsájtass ki és vonj vissza CYF-et,
-állítsd be a PID szabályozókat, és vezesd függetlenül a saját pénzügyi ökoszisztémádat.[/size]
+[b]Minden egy stabil alappal kezdődik.[/b]
+A hálózat üzemanyaga a [b]ZSOZSO[/b]. Szerezd be most, és légy része a Stellar legmodernebb MLM keretrendszerének.
 
-[hr]
-[size=16pt][b]Minden egy stabil alappal kezdődik.[/b][/size]
-[size=12pt]A hálózat üzemanyaga a [b]ZSOZSO[/b]. Szerezd be most, és légy része egy MLM keretrendszernek.[/size]
-[/center]
+[url=https://stellar.expert/explorer/public/asset/ZSOZSO-GDZKLEYJ54QUIEYE4DUUOCIJDUS7R5MDW5MCAB3XTUGPJ3C7SSZJRQUC]ZSOZSO asset megtekintése →[/url]

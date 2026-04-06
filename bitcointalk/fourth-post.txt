@@ -1,0 +1,59 @@
+[b]Development Update: The Iceberg Protocol App Suite[/b]
+
+[i]Note: All repositories listed below are currently private. ZSOZSO holders will gain access once the Stellar network reaches 4,000 trustlines with a minimum of 2,000,000 ZSOZSO on each of those 4,000 accounts. Until then, this post serves as a transparency overview of the architecture and progress.[/i]
+
+We are building a suite of 9 interconnected projects — 6 PWA applications and 3 shared Rust libraries — all compiled to WebAssembly via Dioxus. Every app runs offline-first in the browser as a Progressive Web App.
+
+[b]Architecture[/b]
+
+All 6 applications share the same foundation: three Rust libraries that handle the blockchain, database, and secure storage layers.
+
+[b]Shared Libraries[/b]
+
+[b]ledger[/b] — Stellar blockchain abstraction layer. Handles Ed25519 keypair generation, XDR transaction building and submission via Horizon API, and Soroban smart contract integration (ZSOZSO locking/unlocking, Proof-of-Zsozso contract). Supports both Testnet (with faucet) and Mainnet.
+
+[b]db[/b] — Abstraction layer for GUN.js, a decentralized real-time graph database. Provides trait-based interfaces for peer relay configuration, SEA (Secure Encryption Algorithm) cryptographic signing, and the NetworkGraph trait that manages the MLM parent/worker hierarchy. Offline-first with localStorage persistence.
+
+[b]store[/b] — Secure encrypted storage for secret keys. Supports IndexedDB and localStorage backends, plus WebAuthn Passkey integration with PRF-based key derivation for layered encryption of secrets.
+
+All three libraries use trait-based abstraction — apps depend on interfaces, not concrete implementations. Multi-language support (English, French, German, Hungarian, Spanish) is built into every library.
+
+[b]Applications[/b]
+
+[b]cyf[/b] — PWA for burning and minting CYBERFORINT (CYF) tokens on Stellar. Displays balances, generates QR codes for public keys, and provides biometric/PIN-based key management.
+
+[b]mlm[/b] — PWA for building the Iceberg Protocol's hierarchical MLM community ("Antarctica"). Manages the parent/worker relationship tree, visualizes the network hierarchy, and supports QR code-based worker recruitment.
+
+[b]proof-of-zsozso[/b] — PWA for locking/unlocking ZSOZSO tokens via a Soroban smart contract. Generates protocol income. Mainnet-only operations with balance display for XLM, ZSOZSO, and locked amounts.
+
+[b]merlin[/b] — The root node application for the Antarctica MLM network. Restricted access — requires the Merlin secret to start. Acts as the gateway/root for the entire MLM hierarchy.
+
+[b]admin[/b] — Administrative dashboard for oversight of all Iceberg Protocol apps on a device. Provides diagnostics for the local MLM environment, in-app log buffer with save/dump/upload functionality, and remote log shipping to a Python backend.
+
+[b]gun-connect[/b] — Small utility PWA for connecting a GUN relay node to a device. Handles relay URL configuration, connection status monitoring, and GUN DB secret management.
+
+[b]Dependency Flow[/b]
+
+All six apps import the same three libraries:
+
+  cyf, mlm, proof-of-zsozso, merlin, admin, gun-connect
+    |         |         |
+    db      ledger    store
+  (GUN)   (Stellar)  (secrets)
+
+The apps are independent PWAs — each deployed separately — but they share data through the GUN graph database and the Stellar ledger.
+
+[b]Tech Stack Summary[/b]
+
+[list]
+[*] Language: Rust, compiled to WebAssembly
+[*] UI framework: Dioxus
+[*] Blockchain: Stellar (Horizon API + Soroban smart contracts)
+[*] Database: GUN.js (peer-to-peer, encrypted, real-time sync)
+[*] Crypto: Ed25519, SHA-256, WebAuthn Passkey, SEA signing
+[*] Storage: IndexedDB + Passkey PRF encryption
+[*] Deployment: PWA (offline-capable, installable)
+[*] Languages: English, French, German, Hungarian, Spanish
+[/list]
+
+[i]Reminder: These repositories are private at this time. The source code will be opened to ZSOZSO holders when 4,000 Stellar accounts hold a trustline with at least 2,000,000 ZSOZSO each. Track the current trustline count on [url=https://stellar.expert/explorer/public/asset/ZSOZSO-GDZKLEYJ54QUIEYE4DUUOCIJDUS7R5MDW5MCAB3XTUGPJ3C7SSZJRQUC]Stellar Explorer[/url].[/i]
