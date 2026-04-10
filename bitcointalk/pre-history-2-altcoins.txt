@@ -1,0 +1,12 @@
+[b]Vortexledger Pre-History: NXT, NEM and Horizon (The Estonian Experiment)[/b]
+
+I participated in the first 100% Greencoin (PoS) projects:
+
+[list]
+[*] [b]NXT:[/b] The birth of a great community, from which a thousand small coins branched off.
+[*] [b]NEM (New Economy Movement):[/b] I later rotated my significant stake into IOTA.
+[*] [b]Horizon (NXT clone):[/b] I ran my own node in the Estonian state's blockchain-based notary experiment (5% stake).
+[/list]
+
+[hr]
+[i]This is part 2 of the Vortexledger Pre-History series. Full version: [url=https://zsozso.info/pre-history.html]zsozso.info/pre-history.html[/url][/i]

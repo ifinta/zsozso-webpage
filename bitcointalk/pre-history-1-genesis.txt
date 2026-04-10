@@ -1,0 +1,11 @@
+[b]Vortexledger Pre-History: 2011 — The Genesis and the Discovery of Bitcoin[/b]
+
+After a trip to Switzerland I discovered Bitcoin. I suspected that something new would replace the attacked offshore solutions. As a family man living in Austria, I invested 3,000 EUR in Bitcoin and mining hardware to thoroughly understand the technology.
+
+[list]
+[*] I got to know Namecoin and Litecoin.
+[*] [b]Greencoin:[/b] I started criticizing the waste of PoW (Proof of Work). [url=https://bitcointalk.org/index.php?topic=54222.0]Bitcointalk thread here.[/url]
+[/list]
+
+[hr]
+[i]This is part 1 of the Vortexledger Pre-History series. Full version: [url=https://zsozso.info/pre-history.html]zsozso.info/pre-history.html[/url][/i]

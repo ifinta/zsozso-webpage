@@ -1,0 +1,11 @@
+[b]Vortexledger Pre-History: Present — Stellar Soroban & ZSOZSO[/b]
+
+I found the Stellar network to be the most suitable for realizing my [b]Distributed Central Bank[/b] vision. Currently I develop Rust-based Soroban smart contracts and PWA apps (Dioxus, GUNdb).
+
+[b]ZSOZSO (Zs):[/b] Utility token for development.
+[b]CYBERFORINT (CYF):[/b] Test of a new type of distributed currency technology.
+
+[url=https://stellar.expert/explorer/public/asset/ZSOZSO-GDZKLEYJ54QUIEYE4DUUOCIJDUS7R5MDW5MCAB3XTUGPJ3C7SSZJRQUC]View ZSOZSO on Explorer →[/url]
+
+[hr]
+[i]This is part 6 of the Vortexledger Pre-History series. Full version: [url=https://zsozso.info/pre-history.html]zsozso.info/pre-history.html[/url][/i]

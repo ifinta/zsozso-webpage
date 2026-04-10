@@ -1,0 +1,9 @@
+[b]Vortexledger Pre-History: Curtly, Byteball and the First RWA Tokens[/b]
+
+[list]
+[*] [b]Curtly:[/b] The idea of a "short" blockchain — don't store the whole thing, only the last year.
+[*] [b]Byteball (OByte):[/b] Here I issued [url=https://asset.obyte.app/#!/assets/2z36V1HUNmvFedu9PH0I3SzCd+TjOhXZCijrIYWbA5w=][b]EMERALD[/b][/url], one of the first RWA (Real World Asset) backed tokens, and [url=https://asset.obyte.app/#!/assets/oF9wmH31QDL~2FVXppOJ9mHISrvcdJQ1rqU+Jv8GRQH84=][b]CHARM[/b][/url] for online auction houses.
+[/list]
+
+[hr]
+[i]This is part 4 of the Vortexledger Pre-History series. Full version: [url=https://zsozso.info/pre-history.html]zsozso.info/pre-history.html[/url][/i]
