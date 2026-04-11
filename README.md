@@ -2,7 +2,7 @@
 
 The official website for the **Iceberg Protocol** and the **ZSOZSO** utility token on the [Stellar](https://stellar.org/) blockchain.
 
-🌐 **Live site:** [https://ifinta.github.io/zsozso-webpage/](https://ifinta.github.io/zsozso-webpage/)
+🌐 **Live site:** [zsozso.info](https://zsozso.info)
 
 ## What is the Iceberg Protocol?
 
@@ -18,13 +18,13 @@ The entire infrastructure is fueled by the **ZSOZSO** utility token.
 
 | Page | Description |
 |------|-------------|
-| [Home](https://ifinta.github.io/zsozso-webpage/) | Overview of the Iceberg Protocol (English & Hungarian) |
-| [Timeline](https://ifinta.github.io/zsozso-webpage/timeline.html) | Development milestones from 2024 Q1 to present |
-| [Allocation](https://ifinta.github.io/zsozso-webpage/allocation.html) | ZSOZSO token distribution (100 billion total supply) |
-| [Whitepaper](https://ifinta.github.io/zsozso-webpage/whitepaper.html) | Full technical whitepaper — protocol architecture, PID controllers, pruning mechanism |
-| [Open Tasks](https://ifinta.github.io/zsozso-webpage/opentasks.html) | Current development priorities |
-| [FAQ](https://ifinta.github.io/zsozso-webpage/faq.html) | Frequently asked questions (Hungarian & English) |
-| [Contact](https://ifinta.github.io/zsozso-webpage/contact.html) | Community links |
+| [Home](https://zsozso.info) | Overview of the Iceberg Protocol (English & Hungarian) |
+| [Timeline](https://zsozso.info/timeline.html) | Development milestones from 2024 Q1 to present |
+| [Allocation](https://zsozso.info/allocation.html) | ZSOZSO token distribution (100 billion total supply) |
+| [Whitepaper](https://zsozso.info/whitepaper.html) | Full technical whitepaper — protocol architecture, PID controllers, pruning mechanism |
+| [Open Tasks](https://zsozso.info/opentasks.html) | Current development priorities |
+| [FAQ](https://zsozso.info/faq.html) | Frequently asked questions (Hungarian & English) |
+| [Contact](https://zsozso.info/contact.html) | Community links |
 
 ## ZSOZSO Token Allocation
 
@@ -42,67 +42,31 @@ Total supply: **100,000,000,000 ZSOZSO**
 
 - **bitcointalk.org:** [Bitcointalk announcements](https://bitcointalk.org/index.php?topic=5492539.msg63935024#msg63935024)
 - **ZSOZSO on Stellar Expert:** [View Asset →](https://stellar.expert/explorer/public/asset/ZSOZSO-GDZKLEYJ54QUIEYE4DUUOCIJDUS7R5MDW5MCAB3XTUGPJ3C7SSZJRQUC)
-- **Desktop App:** [zsozso-dioxus](https://github.com/ifinta/zsozso-dioxus) — Rust/Dioxus wallet for key management and transaction signing
+- **Desktop App:** [zsozso-dioxus](https://zsozso.info/app) — A TEST App': Rust/Dioxus wallet for key management and transaction signing
 - **Bluesky:** [zsozsoonstellar.bsky.social](https://bsky.app/profile/zsozsoonstellar.bsky.social)
 - **Discord:** [Join through a member, this invite not more valid](https://discord.gg/CvsGETXYJH)
 
 ## Local Development
 
-The website is a static HTML site. No build step required for development.
+The website is a static HTML site, bundler is parcel
 
 ```bash
 # Clone
 git clone https://github.com/ifinta/zsozso-webpage.git
 cd zsozso-webpage
 
+npm i
+npm run build
+
 # Serve locally (any static server works)
-python3 -m http.server 8080
-# or
-npx serve .
+npx serve dist/
 ```
 
-Then open [http://localhost:8080](http://localhost:8080) in your browser.
+Then open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Deployment
 
-The site is deployed as an **offline-capable PWA** via GitHub Pages.
-
-A Node.js script (`bundle_sw.js`) compresses the entire `dist/` folder into a
-self-contained deployment with just `index.html` and `sw.js`. All pages, CSS,
-JS, images, and fonts are gzip-compressed, base64-encoded, and embedded inside
-the service worker.
-
-```bash
-# Build the bundled offline deployment:
-npm run deploy
-# Output: deploy/zsozso-webpage/
-
-# Serve locally:
-npx serve deploy/ -l 8080
-# → http://localhost:8080/zsozso-webpage/
-```
-
-**How the offline PWA works:**
-
-1. A bootloader `index.html` registers the service worker and shows a loading
-   spinner
-2. The SW's `install` event unpacks all embedded assets into CacheStorage
-3. On activation, the SW intercepts all fetch requests and serves from cache —
-   every page works fully offline from the first visit
-4. Multi-page navigation (e.g. `/timeline.html`, `/faq.html`) is resolved by
-   the SW from the cache
-5. PWA metadata (manifest, icons) is embedded as data URIs in the bootloader
-
-The CI workflow (`.github/workflows/deploy.yml`) runs `bundle_sw.js` on every
-push to `main` and deploys the result to GitHub Pages.
-
-## PWA Installation
-
-The site can be installed as an app on mobile and desktop:
-
-- **Android Chrome** — Menu (⋮) → "Add to Home screen"
-- **iOS Safari** — Share (↑) → "Add to Home Screen"
-- **Desktop Chrome/Edge** — Address bar install icon
+The dist/ folder is a static HTML5 site. It will be deployed to our server (zsozso.info) on vultr
 
 ## License
 
