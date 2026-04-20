@@ -41,5 +41,6 @@ a:hover { color: #b3e5fc; }
 .accordion-item.disabled > * { opacity: 0.5; }
 
 /* Dark links for use over light backgrounds (e.g. Antarctica image) */
-a.link-dark { color: #166e60; }
-a.link-dark:hover { color: #093326; }
+a.link-dark { color: #0c463c; text-decoration: underline; }
+a.link-dark:hover { color: #d50000; text-decoration: underline; }
+a.link-dark:focus { color: #27a522; text-decoration: underline; }
