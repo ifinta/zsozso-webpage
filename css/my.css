@@ -1,10 +1,45 @@
 body {
   margin: 30px;
-  background-color: lightblue;
   padding-top: 110px;
+  position: relative;
+  background-color: black;
+  color: #b2dfdb;
 }
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: url('../img/antarctica-bg.png') center/contain no-repeat;
+  opacity: 1;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Section headings */
+h3 { color: #4dd0e1; }
+h4 { color: #80cbc4; }
+
+a { color: #80d8ff; }
+a:hover { color: #b3e5fc; }
 
 .nav-link:hover {
   color: #f22;
   background-color: #c3e2ed;
 }
+
+/* Accordion common styles */
+.accordion-body { background-color: #a8d8ea; }
+.accordion-button.collapsed { background-color: #b2ebf2; }
+.accordion-button:not(.collapsed) { background-color: #80deea; color: #004d40; }
+
+/* Disabled accordion items (pre-history) */
+.accordion-item.disabled { pointer-events: none; }
+.accordion-item.disabled > * { opacity: 0.5; }
+
+/* Dark links for use over light backgrounds (e.g. Antarctica image) */
+a.link-dark { color: #166e60; }
+a.link-dark:hover { color: #093326; }

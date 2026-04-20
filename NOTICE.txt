@@ -1,4 +1,4 @@
-Merlin's Neogene Backbone (MNB) - zsozso-webpage
+Merlin's Neogene Backbone 4MNB (MNB4MNB) - zsozso-webpage
 Copyright 2026 István Finta - https://zsozso.info
 
 The architecture and critical logic of this project are the 
@@ -12,6 +12,14 @@ Collaboration Acknowledgements:
   technologies, including Google Gemini and GitHub Copilot.
 - Special thanks to the GunDB community and Mark Nadal for the
   underlying decentralized database philosophy.
+
+Image Attributions:
+- Background image (img/antarctica-bg.png): South Polar view of Antarctica.
+  Imagery © Google, © NASA, © TerraMetrics.
+  Captured from Google Earth (earth.google.com).
+  Used in accordance with Google Earth's Terms of Service and attribution
+  requirements (https://www.google.com/permissions/geoguidelines/).
+- A slightly modded with gimp by ifinta to show a slow rotation of our Gaia
 
 Licensed under the MIT Licence (the "License") 
 see LICENCE.txt file in the project root folder also.
