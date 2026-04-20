@@ -14,6 +14,8 @@ The Iceberg Protocol is a decentralized hierarchical MLM (Multi-Level Marketing)
 
 The entire infrastructure is fueled by the **ZSOZSO** utility token.
 
+The architecture and critical logic of this project are the results of human-led AI-assisted engineering. This unique workflow ensures industrial-grade reliability and accelerated deployment.
+
 ## Website Pages
 
 | Page | Description |
