@@ -1,0 +1,13 @@
+Merlin's Neogene Backbone (MNB) - zsozso-webpage
+Copyright 2026 István Finta - https://zsozso.info
+
+This product includes software developed by István Finta.
+
+Collaboration Acknowledgements:
+- This software was developed with the assistance of AI-pair programming
+  technologies, including Google Gemini and GitHub Copilot.
+- Special thanks to the GunDB community and Mark Nadal for the
+  underlying decentralized database philosophy.
+
+Licensed under the MIT Licence (the "License") 
+see LICENCE.txt file in the project root folder also.
