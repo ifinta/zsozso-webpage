@@ -3,13 +3,13 @@
 
 # TEAM
 
-    <name> -- <role> -- <twitter>
+    István Finta -- developer -- ifinta66
 
 # THANKS
 
-    <name>
+    Mark Nadal and the GunDB Community
 
 # TECHNOLOGY COLOPHON
 
-    CSS3, HTML5
+    GunDB, Rust, Stellar Soroban, CSS3, HTML5
     Apache Server Configs, jQuery, Modernizr, Normalize.css
