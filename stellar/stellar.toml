@@ -14,9 +14,8 @@ ACCOUNTS=[
 VERSION="2.0.0" # The version of this toml file...
 NETWORK_PASSPHRASE="Public Global Stellar Network ; September 2015"
 
-# SEP-10 endpoint is in the implemenatation/setup/test... Be patient, and check this URL again, if it is failed - after some hours, minutes ... As You wish.
+# SEP-10 endpoint should work well.
 WEB_AUTH_ENDPOINT="https://zsozso.info/auth"
-# my first (?) Stellar Mainnet account.
 SIGNING_KEY="GDWDIKGZUYZTTIR3PL67EGTKYVNZHBZHHX7XII3F7Z5JLK3XFF5CAPYJ"
 
 [DOCUMENTATION]
@@ -60,7 +59,7 @@ telegram="https://t.me/cyberforint"
 
 [[PRINCIPALS]]
 name="Tattypoo"
-ROLE="The 1st - since 1989? No. Since 1984. For me. A mother of ... ((TOP SECRET!!! PSSST!)) ... OUR daughter??? ((I can't decise just now - UPDATELATER!))"
+ROLE="The well known Whitch from the Tale, the good one, from North."
 
 [[PRINCIPALS]]
 name="H"
