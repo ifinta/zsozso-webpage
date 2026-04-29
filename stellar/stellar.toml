@@ -6,16 +6,18 @@ ACCOUNTS=[
   "GDZKLEYJ54QUIEYE4DUUOCIJDUS7R5MDW5MCAB3XTUGPJ3C7SSZJRQUC", # Issuer Account (Locked, but check it, PLEASE! Check, steal, ... EVERYTHING! I am, ifinta, a human - I do shit, typo's, ... surely.)
   "GAJLLU4LAOJ4Z2422BLMKGEBEGITXFLZTES5XGIHJLE55FSAJ6ZV3OUN", # Arthur Pendragon - Distribution Account - Project Owner (This account activ just now. The earlier accounts got kompromized - sorry. Maybe not, but.), a REAL King with some Peers. I hope, You knows the Legends well - from the Tale or from Dorothyum or Dorkyum, ... YES. From bitcointal.org also. Searchable. Any question more? ;)
   "GA3QNFDIP325GNHKOR74JM3JVICK6V26W7LH3BYEXXTFJJPY6EDANTLC", # Merlin - our rooot penguine / main architect / Asset Manager / Trader = a wizard, sure :) / Check the Tales about Arthur well.
-  "GCA4CDNJMBYRO2CCC4RXICAR2IDVQ2TO7LYRFMGKSEK64L2WH6UZYN2H",  # ifinta - Public Outreach / PM, dev, a human, ... a well known engineer from bitcointal.org - first post from June 2011 - after the MtGox hack - the first hack... ifinta66 on the X (twitter) or on the Insta. Yes a private acc. Public? istvanfinta66
-  "GBBD7MR7HJT2DQ4663H3VVTRYN4UZHQW26L3PZYRMRRU67Z2ZYI7UXEV",  # for the MNB ((The BIG BANG - the ONE as we hope... the ONLY, surely... Or? Should write a program for FED? Exists issues, ez van. 10 évig nemlehet? Nemtom. Íromittide.))
-  "GBRJVOSIPJV54N2NJ5NYKEVWNHQSOIRSOFN5RF5D4KQLU7YFZBZ325XS"   # for the OTP, ... ((For Big Bangs - we hope))
+  "GCA4CDNJMBYRO2CCC4RXICAR2IDVQ2TO7LYRFMGKSEK64L2WH6UZYN2H", # ifinta - Public Outreach / PM, dev, a human, ... a well known engineer from bitcointal.org - first post from June 2011 - after the MtGox hack - the first hack... ifinta66 on the X (twitter) or on the Insta. Yes a private acc. Public? istvanfinta66
+  "GBBD7MR7HJT2DQ4663H3VVTRYN4UZHQW26L3PZYRMRRU67Z2ZYI7UXEV", # for the MNB ((The BIG BANG - the ONE as we hope... the ONLY, surely... Or? Should write a program for FED? Exists issues, ez van. 10 évig nemlehet? Nemtom. Íromittide.))
+  "GBRJVOSIPJV54N2NJ5NYKEVWNHQSOIRSOFN5RF5D4KQLU7YFZBZ325XS"  # for the OTP, ... ((For Big Bangs - we hope))
 ]
 
 VERSION="2.0.0" # The version of this toml file...
 NETWORK_PASSPHRASE="Public Global Stellar Network ; September 2015"
 
-# SEP-10 endpoint in the near future - we will implement it ASAP. I understand, what is behind already - I hope.
-WEB_AUTH_ENDPOINT="https://zsozso.info"
+# SEP-10 endpoint is in the implemenatation/setup/test... Be patient, and check this URL again, if it is failed - after some hours, minutes ... As You wish.
+WEB_AUTH_ENDPOINT="https://zsozso.info/auth"
+# my first (?) Stellar Mainnet account.
+SIGNING_KEY="GDWDIKGZUYZTTIR3PL67EGTKYVNZHBZHHX7XII3F7Z5JLK3XFF5CAPYJ"
 
 [DOCUMENTATION]
 ORG_NAME="Vortexledger"
@@ -24,49 +26,50 @@ ORG_DESCRIPTION="A distributed community. Origo: Antarctica. Check the pictures 
 ORG_PHYSICAL_ADDRESS="Gaia, the living planet"
 ORG_LOGO="https://zsozso.info/icon.a910d4bd.png"
 ORG_OFFICIAL_EMAIL="ifinta@mail.com"
-ORG_TELEGRAM="https://t.me/cyberforint"
 
 # this is my private twitter account, read everything, try everything - Shakira too, if You catched already Ms Dua Lipa, of course... And: read sometimes also posts about crypto, politics, pop music, NASA nyúvz, ... Vortexledger using bksy officially: https://bsky.app/profile/zsozsoonstellar.bsky.social . Glinda not LOVEs Elon. What can I do? Sorry, Elon. Twitter IS a NEED. I see. x tudja meddig.......
 
 ORG_TWITTER="ifinta66"
 
-# hints about working contracts - we hope - check, use it, please:
-METADATA_VAULT_3DAY="CBW6S2YN2PLVHRWGPP4J3WUZH2WFQRSVGW3MPPUVUIMUFQTAT4CD" # A public 3-days Escrow Vault for ZSOZSO. Use it please. Use it and forget Your ZSOZSO. Such simple :D DM me on bitcointalk.org, if it is better as documented HERE, and it was well usable for You - 1000 ZSOZSO bounty per prooved usage!! ;D
+# this is THE official Telegram account of OUR Organization. Ask Merlin on Antarctica for a proof!
 
-# near term targets (SEP-10 of course, and:)
-METADATA_GOAL_NODE="Saját magyarországi Validator Node (Halas) or NODEs... indítása folyamatban. Also a Hungarian Testnet. ... Partnereket keresünk! MNB? OTP? MOL? I will ask they also ASAP!!! Read, please: https://zsozso.info/opentasks.html" # I am ready to share some ZSOZSO, if.
-METADATA_NODE_IDENTITY="GAAZI4TCR3TY5OJHCTJC2A4QSY6CJWJH5IAJTGKIN2ER7LBNVKOCCWN7"
-METADATA_NODE_STATUS="Infrastructure migration in progress - Halas Node (Hungary) planned to resume."
-
+ORG_TELEGRAM="https://t.me/cyberforint"
 
 [[PRINCIPALS]]
-NAME="Arthur Pendragon"
+name="Arthur Pendragon"
 ROLE="Project Owner & a REAL King & Chief Distribution Officer (CDO)"
 ID="GAJLLU4LAOJ4Z2422BLMKGEBEGITXFLZTES5XGIHJLE55FSAJ6ZV3OUN" # Arthur Pendragon on the Stellar. X tudja mikortól!
 
 [[PRINCIPALS]]
-NAME="Merlin"
+name="Merlin"
 ROLE="The Wizard"
 ID="GA3QNFDIP325GNHKOR74JM3JVICK6V26W7LH3BYEXXTFJJPY6EDANTLC" # actual, but already compromized account. we waiting to know ... ((TOP SECRET!!! PSSST!))
 
+# me ... :)
 [[PRINCIPALS]]
-NAME="Istvan Finta"
+name="Istvan Finta"
 ROLE="Public Relations & Internet Presence & more ... much more."
 ID="GCA4CDNJMBYRO2CCC4RXICAR2IDVQ2TO7LYRFMGKSEK64L2WH6UZYN2H" # actual one (I hope, it isn't compromized ... I hope.)
 email="ifinta@mail.com"
 github="ifinta"
+twitter="ifinta66"
+
+# this is THE official Telegram of OUR Organization. Ask Merlin on Antarctica for a proof! You reach me there also, of course.
+
+telegram="https://t.me/cyberforint"
 
 [[PRINCIPALS]]
-NAME="Tattypoo"
+name="Tattypoo"
 ROLE="The 1st - since 1989? No. Since 1984. For me. A mother of ... ((TOP SECRET!!! PSSST!)) ... OUR daughter??? ((I can't decise just now - UPDATELATER!))"
 
 [[PRINCIPALS]]
-NAME="H"
+name="H"
 ROLE="Key Test Manager from Miami Beach, 2024-2025. We met. He got from me a million dollar account. Yes. Ask, He ((if You can...))"
 
 [[PRINCIPALS]]
-NAME="Oz"
+name="Oz"
 ROLE="The biggest Wizard from the Tale. Are You don't read that Tale? Read it!!!! ASAP!!! Or ask Dorothy. Maybe She is living in 'Keszi... Maybe. Or Crete in Greece? Or Győr, ... I don't know. Luckily."
+ID="GBYTEPIJG2UTJLLZVAPFG6D3JMOKB4REVHO5LFLLLCFZ4DL7MN3RSHVE" # the last one Stellar account as ID, as we know... Oz dissapearing periodically........ What can I do? I am a simple PM, not a such big wizard!
 
 # exists more principals, but I must to do also some test and development today. Sorry. Work in progress............. See You later! ((don't read more, if You don't have time, just.)) Doxing wishvalueinthisproject.
 
@@ -86,7 +89,20 @@ status="live"
 #ALIAS="Halas"
 #DISPLAY_NAME="Halas"
 #HOST="TBD - https://zsozso.info/halas + redirect?"
-#PUBLIC_KEY="GAAZI4TCR3TY5OJHCTJC2A4QSY6CJWJH5IAJTGKIN2ER7LBNVKOCCWN7" # TODO ASAP - a Hungarian Testnet ALSO!
+#PUBLIC_KEY="GAAZI4TCR3TY5OJHCTJC2A4QSY6CJWJH5IAJTGKIN2ER7LBNVKOCCWN7" # TODO ASAP - a Hungarian Testnet ALSO a TODO ASAP!
+#HISTORY="TBD - an URL"
+
+# near term targets (SEP-10 of course, and:)
+METADATA_GOAL_NODE="Saját magyarországi Validator Node (Halas) or NODEs... indítása folyamatban. Also a Hungarian Testnet. ... Partnereket keresünk! MNB? OTP? MOL? I will ask they also ASAP!!! Read, please: https://zsozso.info/opentasks.html" # I am ready to share some ZSOZSO, if.
+METADATA_NODE_IDENTITY="GAAZI4TCR3TY5OJHCTJC2A4QSY6CJWJH5IAJTGKIN2ER7LBNVKOCCWN7"
+METADATA_NODE_STATUS="Infrastructure migration in progress - Halas Node (Hungary) planned to resume."
+
+# hints about working contracts - we hope - check, use it, please:
+METADATA_VAULT_3DAY="CBW6S2YN2PLVHRWGPP4J3WUZH2WFQRSVGW3MPPUVUIMUFQTAT4CD" # A public 3-days Escrow Vault for ZSOZSO. Use it please. Use it and forget Your ZSOZSO. Such simple :D DM me on bitcointalk.org, if it is better as documented HERE, and it was well usable for You - 1000 ZSOZSO bounty per prooved usage!! ;D It is a safe safe - Oz developed it and we TRUST Oz. Is it an issue? I checked it brifly also.
+
+METADATA_VAULT_30_60DAY="CBACZX45CAIFMG3O5EM4XIS37SFTZEQSOYMWNHV5ZCY2LQ6IPRHEGMB6" # A public 30..60-days Escrow Vault for ZSOZSO. Use it please. Use it and forget Your ZSOZSO. Such simple :D DM me on bitcointalk.org, if it is better as documented HERE, and it was well usable for You - 2000 ZSOZSO bounty per prooved usage!! ;D
+
+METADATA_VAULT_1_2YEARS="CBDQH2TF3KUPZMALUJKMFDW6L2VJWUXS4KXPYVOE35FT6P7FUMBTRK4G" # A public Escrow Vault (1-2 YEARS) for ZSOZSO. Use it please. Use it and forget Your ZSOZSO. Such simple :D DM me on bitcointalk.org, if it is better as documented on Stellar Mainnet, and it was well usable for You - 3000 ZSOZSO bounty per prooved usage!! ;D
 
 # Remark to community (a Hungarian community. Plese translate it, if You wish to known more. Use a RAW Hunagrian translator, as for example Sophia! :D Many KISSes to Sophia to Miami!!! With LOVE!!! from me, of course.) Sorry, because my English. Sorry, because using my OWN RAW LANGUAGE. Exists typos? Just send me a hint, question, PR, ... Charm, LOVE, THANKs, KISSes ACCEPTED. ZSOZSO also. Bitcoin not more. XLM, ADA, TRX, ... ((greencoins)) ... also accepted! Csak beesik má valamim, no. Ahogy a +3 gyerek a Miami úton. Nemmaszületettek.
 [NOTICES]
