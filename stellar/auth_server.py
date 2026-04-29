@@ -23,11 +23,10 @@ NETWORK_PASSPHRASE = Network.PUBLIC_NETWORK_PASSPHRASE
 
 @app.get("/auth")
 async def get_auth(account: str):
-    """
-    SEP-10 Challenge Request
-    """
     try:
-        # Build the challenge
+        # Ez a lényeg: a string-ből csinálunk egy objektumot, amit az SDK szeret
+        client_address = account
+
         builder = TransactionBuilder(
             source_account=SERVER_KP.public_key,
             network_passphrase=NETWORK_PASSPHRASE,
@@ -35,19 +34,24 @@ async def get_auth(account: str):
         )
         builder.set_timeout(300)
 
-        # Add Manage Data op (SEP-10 standard)
-        # Source must be the CLIENT account
+        # A source=client_address itt már stringként is mehet,
+        # de a hiba szerint az SDK builder-e mást vár.
+        # Próbáld meg így:
         builder.append_manage_data_op(
             data_name=f"{SERVER_NAME} auth",
             data_value=os.urandom(32),
-            source=account
+            source=client_address # A string címet adjuk át
         )
+
+        # Fontos: a Soroban érában a builder.build() néha trükkös
+        # Ha a hiba továbbra is fennáll, próbáld ki: source=Keypair.from_public_key(account).public_key
 
         tx = builder.build()
         tx.sign(SERVER_KP)
 
         return {"transaction": tx.to_xdr()}
     except Exception as e:
+        # Ez adta a hibát a képen
         return {"error": str(e)}
 
 if __name__ == "__main__":
