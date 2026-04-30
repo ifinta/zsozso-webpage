@@ -92,14 +92,14 @@ status="live"
 #HISTORY="TBD - an URL"
 
 # near term targets:
-METADATA_GOAL_NODE="Saját magyarországi Validator Node (Halas) or NODEs... indítása folyamatban. Also a Hungarian Testnet. ... Partnereket keresünk! MNB? OTP? MOL? I will ask they also ASAP!!! Read, please: https://zsozso.info/opentasks.html"
+METADATA_GOAL_NODE="Saját magyarországi Validator Node (Halas) or NODEs... indítása folyamatban. Partnereket keresünk! Read, please: https://zsozso.info/opentasks.html"
 METADATA_NODE_IDENTITY="GAAZI4TCR3TY5OJHCTJC2A4QSY6CJWJH5IAJTGKIN2ER7LBNVKOCCWN7"
 METADATA_NODE_STATUS="Infrastructure migration in progress - Halas Node (Hungary) planned to resume."
 
 # hints about working contracts - we hope - check, use it, please:
-METADATA_VAULT_3DAY="CBW6S2YN2PLVHRWGPP4J3WUZH2WFQRSVGW3MPPUVUIMUFQTAT4CD" # A public 3-days Escrow Vault for ZSOZSO. Use it please. Use it and forget Your ZSOZSO. Such simple :D DM me on bitcointalk.org, if it is better as documented HERE, and it was well usable for You - 1000 ZSOZSO bounty per prooved usage!! ;D It is a safe safe - Oz developed it and we TRUST Oz. Is it an issue? I checked it brifly also.
-METADATA_VAULT_30_60DAY="CBACZX45CAIFMG3O5EM4XIS37SFTZEQSOYMWNHV5ZCY2LQ6IPRHEGMB6" # A public 30..60-days Escrow Vault for ZSOZSO. Use it please. Use it and forget Your ZSOZSO. Such simple :D DM me on bitcointalk.org, if it is better as documented HERE, and it was well usable for You - 2000 ZSOZSO bounty per prooved usage!! ;D
-METADATA_VAULT_1_2YEARS="CBDQH2TF3KUPZMALUJKMFDW6L2VJWUXS4KXPYVOE35FT6P7FUMBTRK4G" # A public Escrow Vault (1-2 YEARS) for ZSOZSO. Use it please. Use it and forget Your ZSOZSO. Such simple :D DM me on bitcointalk.org, if it is better as documented on Stellar Mainnet, and it was well usable for You - 3000 ZSOZSO bounty per prooved usage!! ;D
+METADATA_VAULT_3DAY="35fbb22d04c3e3c41175d341666a0f30ffca3f1764de655f1a38e3a34bc0c1d0" # A public 3-days Escrow Vault for ZSOZSO. Test, use it please.
+METADATA_VAULT_30_60DAY="f2fd2c09e296861107b2c6fb9da9bbb73dac12f90784a1b918685d5c1977f231" # A public 30..60-days Escrow Vault for ZSOZSO. Test, use it please.
+METADATA_VAULT_1_2YEARS="7907c6338e67c2f9ceae6f2367cfa1d4d8e0096adb06d35c3da885763d341a77" # A public Escrow Vault (1-2 YEARS) for ZSOZSO. Test, use it please.
 
 # Remark to community (to the Hungarian community)
 [NOTICES]
