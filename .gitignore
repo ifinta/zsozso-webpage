@@ -5,6 +5,4 @@ node_modules
 dist
 deploy
 .cache
-visions.txt
-zsozso-game.txt
 *.tgz
